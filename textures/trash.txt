@@ -46,3 +46,4 @@
 	printf("%i\n", param->Ry);
 	printf("%x\n", param->f_color);
 	printf("%x\n", param->c_color);
+	printf("%s", mapline);

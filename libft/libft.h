@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:11:45 by truby             #+#    #+#             */
-/*   Updated: 2020/11/20 17:52:28 by truby            ###   ########.fr       */
+/*   Updated: 2021/02/17 00:03:37 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
+char			*ft_calloc_char(int num, char a);
+int				ft_strlen_int(char *str);
 
 #endif

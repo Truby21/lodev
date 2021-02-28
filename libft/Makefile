@@ -6,7 +6,7 @@
 #    By: truby <truby@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 21:11:17 by truby             #+#    #+#              #
-#    Updated: 2021/01/30 23:08:28 by truby            ###   ########.fr        #
+#    Updated: 2021/02/17 00:03:37 by truby            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c\
 ft_strncmp.c ft_strlcpy.c ft_strlcat.c ft_atoi.c ft_calloc.c ft_strdup.c\
 ft_putnbr_fd.c ft_strnstr.c ft_putchar_fd.c ft_putendl_fd.c ft_putstr_fd.c\
 ft_substr.c ft_strjoin.c ft_strtrim.c ft_itoa.c ft_strmapi.c ft_split.c\
-get_next_line.c get_next_line_utils.c
+get_next_line.c get_next_line_utils.c ft_strlen_int.c ft_calloc_char.c\
 
 BONUS_C_FILES = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c\
 ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 21:53:42 by truby             #+#    #+#             */
-/*   Updated: 2020/11/24 00:37:42 by truby            ###   ########.fr       */
+/*   Updated: 2021/02/16 08:54:47 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,13 @@ char					**ft_split(char const *s, char c)
 		return (NULL);
 	o = 0;
 	w = qword(s, c);
-	sp = (char **)malloc(sizeof(char *) * (w + 1));
-	if (sp == NULL)
+	if(!(sp = (char **)malloc(sizeof(char *) * (w + 1))))
 		return (NULL);
 	while (o != w)
 	{
 		g = find(s, c);
 		ch = qchar(s, c, g);
-		sp[o] = ft_substr(s, g, ch);
-		if (sp[o] == NULL)
+		if (!(sp[o] = ft_substr(s, g, ch)))
 			return (ft_free(sp, o));
 		o++;
 		s = s + g + ch;

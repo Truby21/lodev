@@ -3,4 +3,4 @@ project(cub3d C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(cub3d main.c test.c)
+add_executable(cub3d main.c test.c libft/ft_calloc_char.c)
