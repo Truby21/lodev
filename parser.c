@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 21:13:40 by truby             #+#    #+#             */
-/*   Updated: 2021/02/28 19:11:39 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/13 22:17:25 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 		return (ft_error2("Error\nCan't open this config.\n"));
 	line = NULL;
 	i = -1;
-	if (!(param = (t_param *) malloc(sizeof(t_param))))
+	if (!(param = (t_param *)malloc(sizeof(t_param))))
 		return (ft_error2("Error\nError of malloc. Shit happens only with you"
 						  ".\n"));
 	param->EA = NULL;
@@ -56,10 +56,15 @@ int main(int argc, char **argv)
 				if (!(param = ft_flags(line, i, param)))
 					return (-1);
 				else
-					break;
+					break ;
 			}
 			else if (line[i] == ' ')
-				continue;
+			{
+				if (line[i + 1] == '\0')
+					return(ft_error2("Error\nInvalid config.\n"));
+				else
+					continue ;
+			}
 			else
 				return (ft_error2("Error\nExtra characters.\nInvalid config. "
 								  "Just like you.\n"));
