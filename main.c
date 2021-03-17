@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:39:15 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 15:32:58 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:29:53 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int	main(int argc, char **argv)
 	int		fd;
 
 	if (argc > 2)
-		ft_error2("Error\nToo much arguments.\n");
+		ft_error("Error\nToo much arguments.\n");
 	if (argc < 2)
-		ft_error2("Error\nNeed config.\n");
+		ft_error("Error\nNeed config.\n");
 	param = (t_param *)malloc(sizeof(t_param));
 	if (!param)
-		ft_error2("Error\nError of malloc.\n");
+		ft_error("Error\nError of malloc.\n");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		ft_error2("Error\nCan't open this config.\n");
+		ft_error("Error\nCan't open this config.\n");
 	param->EA = NULL;
 	param->WE = NULL;
 	param->NO = NULL;

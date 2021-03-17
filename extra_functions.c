@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:50:21 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 20:01:34 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:29:32 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strjoin_cub(char *s1, char *s2, int i, int j)
 
 	new = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
 	if (!new)
-		ft_error3("Error\nError of malloc.\n");
+		ft_error("Error\nError of malloc.\n");
 	while (++i < ft_strlen_int(s1))
 		new[i] = s1[i];
 	if (s1)
@@ -32,7 +32,7 @@ char	*ft_strjoin_cub(char *s1, char *s2, int i, int j)
 	while (new[++i] != '\0')
 	{
 		if (new[i] == '\n' && new[i + 1] == '\n')
-			ft_error3("Error\nInvalid config.\n");
+			ft_error("Error\nInvalid config.\n");
 	}
 	return (new);
 }

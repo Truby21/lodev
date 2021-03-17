@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 21:13:40 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 22:10:40 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:26:05 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ int	ft_parser(t_param *param, int fd, int i)
 	mapline = ft_strjoin_cub(mapline, line, -1, -1);
 	free(line);
 	param = check_and_spl(param, gnl, mapline);
-	valid_map(param, 0, 0, -1);
-	if (param == NULL)
-		return (-1);
+	param = valid_map(param, 0, 0, -1);
+	// if (param == NULL)
+	// 	return (-1);
 	ft_mymlx(param, -1, -1, 0);
 	return (1);
 }
