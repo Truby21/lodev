@@ -6,23 +6,22 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:50:21 by truby             #+#    #+#             */
-/*   Updated: 2021/02/24 00:53:03 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/16 18:14:40 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-char		*ft_strjoin_cub(char *s1, char *s2)
+char				*ft_strjoin_cub(char *s1, char *s2)
 {
-	char	*new;
-	int		i;
-	int		j;
+	char			*new;
+	int				i;
+	int				j;
 
 	i = -1;
 	j = -1;
 	if (!(new = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2))))
-		return (ft_error3("Error\nError of malloc. Shit happens only with "
-					"you.\n"));
+		return (ft_error3("Error\nError of malloc.\n"));
 	while (++i < ft_strlen_int(s1))
 		new[i] = s1[i];
 	if (s1)
@@ -33,7 +32,7 @@ char		*ft_strjoin_cub(char *s1, char *s2)
 	if (s1)
 		free(s1);
 	i = -1;
-	while(new[++i] != '\0')
+	while (new[++i] != '\0')
 	{
 		if (new[i] == '\n' && new[i + 1] == '\n')
 			return (ft_error3("Error\nInvalid config.\n"));
@@ -41,14 +40,14 @@ char		*ft_strjoin_cub(char *s1, char *s2)
 	return (new);
 }
 
-int 				ft_max_len(char *str, int k)
+int					ft_max_len(char *str, int k)
 {
-	int 			i;
+	int				i;
 
 	i = 0;
 	if (str == NULL)
 		return (0);
 	while (str[i] != '\0')
 		i++;
-	return (i > k ? i : k);
+	return (i >= k ? i : k);
 }

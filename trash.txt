@@ -21,3 +21,33 @@
 	}
 	mlx_loop(mlx);
 }
+
+//	printf("%s", mapline);
+//	printf("%s\n", param->NO);
+//	printf("%s\n", param->SO);
+//	printf("%s\n", param->WE);
+//	printf("%s\n", param->EA);
+//	printf("%s\n", param->S);
+//	printf("%i\n", param->Rx);
+//	printf("%i\n", param->Ry);
+//	printf("%x\n", param->f_color);
+//	printf("%x\n", param->c_color);
+//	i = 0;
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i++]);
+//	printf("%s\n", param->map[i]);

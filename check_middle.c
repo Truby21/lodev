@@ -6,79 +6,80 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:57:42 by truby             #+#    #+#             */
-/*   Updated: 2021/02/24 00:58:08 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 14:18:18 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_param 				*ft_check_middle(t_param  *param, int maxlen, int end)
+static t_param	*ft_check_space(t_param *param, int i, int j)
 {
-	int 				i;
-	int 				j;
-	int 				fl;
+	if (param->map[i - 1][j - 1] != '1' && param->map[i - 1][j - 1] != ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i - 1][j] != '1' && param->map[i - 1][j] != ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i - 1][j + 1] != '1' && param->map[i - 1][j + 1] != ' '
+	&& param->map[i - 1][j + 1] != '\0')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i][j - 1] != '1' && param->map[i][j - 1] != ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i][j + 1] != '1' && param->map[i][j + 1] != ' '
+	&& param->map[i][j + 1] != '\0')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i + 1][j - 1] != '1' && param->map[i + 1][j - 1] != ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i + 1][j] != '1' && param->map[i + 1][j] != ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i + 1][j + 1] != '1' && param->map[i + 1][j + 1] != ' '
+	&& param->map[i + 1][j + 1] != '\0')
+		return (ft_error("Error\nInvalid map.\n"));
+	return (param);
+}
 
-	i = 0;
-	j = 0;
-	fl = 0;
-	(void)end;
-	(void)maxlen;
+static t_param	*ft_check_zero(t_param *param, int i, int j)
+{
+	if (param->map[i - 1][j - 1] == ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i - 1][j] == ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i - 1][j + 1] == ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i][j - 1] == ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i][j + 1] == ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i + 1][j - 1] == ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i + 1][j] == ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (param->map[i + 1][j + 1] == ' ')
+		return (ft_error("Error\nInvalid map.\n"));
+	if (ft_isalpha(param->map[i][j]))
+	{
+		param->player++;
+		if (param->player > 1)
+			return (ft_error("Error\nDouble player.\n"));
+	}
+	return (param);
+}
+
+t_param	*ft_check_middle(t_param *param, int i, int j)
+{
 	while (++i && param->map[i + 1] != NULL)
 	{
-		while(param->map[i][++j] != '\0' )
+		while (param->map[i][++j] != '\0')
 		{
 			if (param->map[i][j] == ' ')
 			{
-				if (param->map[i - 1][j - 1] != '1' && param->map[i - 1][j -
-				1] != ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i - 1][j] != '1' && param->map[i - 1][j]
-				!= ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i - 1][j + 1] != '1' && param->map[i - 1][j + 1]
-				!= ' ' && param->map[i - 1][j + 1] != '\0')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i][j - 1] != '1' && param->map[i][j - 1] != ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i][j + 1] != '1' && param->map[i][j + 1] !=
-				' ' && param->map[i][j + 1] != '\0')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i + 1][j - 1] != '1' && param->map[i + 1][j - 1]
-				!= ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i + 1][j] != '1' && param->map[i + 1][j] !=
-				' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i + 1][j + 1] != '1' && param->map[i + 1][j + 1]
-				!= ' ' && param->map[i + 1][j + 1] != '\0')
-					return (ft_error("Error\nInvalid map.\n"));
+				if (!ft_check_space(param, i, j))
+					return (NULL);
 			}
 			else if (param->map[i][j] == '0' || param->map[i][j] == '2'
-			||param->map[i][j] == 'N' || param->map[i][j] == 'S' ||
-			param->map[i][j] == 'E' || param->map[i][j] == 'W')
+			|| param->map[i][j] == 'N' || param->map[i][j] == 'S'
+			||param->map[i][j] == 'E' || param->map[i][j] == 'W')
 			{
-				if (param->map[i - 1][j - 1] == ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i - 1][j] == ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i - 1][j + 1] == ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i][j - 1] == ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i][j + 1] == ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i + 1][j - 1] == ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i + 1][j] == ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (param->map[i + 1][j + 1] == ' ')
-					return (ft_error("Error\nInvalid map.\n"));
-				if (ft_isalpha(param->map[i][j]))
-				{
-					fl++;
-					if (fl > 1)
-						return (ft_error("Error\nDouble player.\n"));
-				}
+				if (!(param = ft_check_zero(param, i, j)))
+					return (NULL);
 			}
 			else if (param->map[i][j] == '1')
 				continue ;
@@ -87,7 +88,5 @@ t_param 				*ft_check_middle(t_param  *param, int maxlen, int end)
 		}
 		j = 0;
 	}
-	if (fl == 0)
-		return(ft_error("Error\nNeed player.\n"));
-	return (param);
+	return (param->player == 0 ? ft_error("Error\nNeed player.\n") : param);
 }
