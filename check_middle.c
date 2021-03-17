@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:57:42 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 19:18:29 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:20:26 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ static t_param	*ft_check_space(t_param *param, int i, int j)
 	if (param->map[i - 1][j] != '1' && param->map[i - 1][j] != ' ')
 		ft_error("Error\nInvalid map.\n");
 	if (param->map[i - 1][j + 1] != '1' && param->map[i - 1][j + 1] != ' '
-	&& param->map[i - 1][j + 1] != '\0')
+		&& param->map[i - 1][j + 1] != '\0')
 		ft_error("Error\nInvalid map.\n");
 	if (param->map[i][j - 1] != '1' && param->map[i][j - 1] != ' ')
 		ft_error("Error\nInvalid map.\n");
 	if (param->map[i][j + 1] != '1' && param->map[i][j + 1] != ' '
-	&& param->map[i][j + 1] != '\0')
+		&& param->map[i][j + 1] != '\0')
 		ft_error("Error\nInvalid map.\n");
 	if (param->map[i + 1][j - 1] != '1' && param->map[i + 1][j - 1] != ' ')
 		ft_error("Error\nInvalid map.\n");
 	if (param->map[i + 1][j] != '1' && param->map[i + 1][j] != ' ')
 		ft_error("Error\nInvalid map.\n");
 	if (param->map[i + 1][j + 1] != '1' && param->map[i + 1][j + 1] != ' '
-	&& param->map[i + 1][j + 1] != '\0')
+		&& param->map[i + 1][j + 1] != '\0')
 		ft_error("Error\nInvalid map.\n");
 	return (param);
 }
@@ -72,8 +72,8 @@ t_param	*ft_check_middle(t_param *param, int i, int j)
 			if (param->map[i][j] == ' ')
 				param = ft_check_space(param, i, j);
 			else if (param->map[i][j] == '0' || param->map[i][j] == '2'
-			|| param->map[i][j] == 'N' || param->map[i][j] == 'S'
-			||param->map[i][j] == 'E' || param->map[i][j] == 'W')
+				|| param->map[i][j] == 'N' || param->map[i][j] == 'S'
+				||param->map[i][j] == 'E' || param->map[i][j] == 'W')
 				param = ft_check_zero(param, i, j);
 			else if (param->map[i][j] == '1')
 				continue ;

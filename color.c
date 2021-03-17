@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 01:08:35 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 19:50:52 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:21:05 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ static int	ft_color(char *line, int r, int g, int i)
 
 	b = 0;
 	if ((ft_spaces(line, &i)) < 0 || (ft_number(line, &i, &r)) < 0
-	|| (ft_comma_and_end(line, &i, 1)) < 0)
+		|| (ft_comma_and_end(line, &i, 1)) < 0)
 		return (-1);
 	if ((ft_spaces(line, &i)) < 0 || (ft_number(line, &i, &g)) < 0
-	|| (ft_comma_and_end(line, &i, 1)) < 0)
+		|| (ft_comma_and_end(line, &i, 1)) < 0)
 		return (-1);
 	if ((ft_spaces(line, &i)) < 0 || (ft_number(line, &i, &b)) < 0
-	|| (ft_comma_and_end(line, &i, 0)) < 0)
+		|| (ft_comma_and_end(line, &i, 0)) < 0)
 		return (-1);
 	return (r << 16 | g << 8 | b);
 }

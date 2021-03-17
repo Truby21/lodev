@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 01:10:02 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 19:34:28 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:21:25 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static int	ft_number(char *line, int *i, int *r, int max)
 static t_param	*ft_find_xy(char *line, int i, t_param *param)
 {
 	if (ft_spaces_and_end(line, &i, 0) < 0
-	|| (ft_number(line, &i, &(param->Rx), 3200)) < 0
-	|| (ft_spaces_and_end(line, &i, 0)) < 0
-	|| (ft_number(line, &i, &(param->Ry), 1800)) < 0
-	|| (ft_spaces_and_end(line, &i, 1)) < 0)
+		|| (ft_number(line, &i, &(param->Rx), 3200)) < 0
+		|| (ft_spaces_and_end(line, &i, 0)) < 0
+		|| (ft_number(line, &i, &(param->Ry), 1800)) < 0
+		|| (ft_spaces_and_end(line, &i, 1)) < 0)
 		ft_error("Error\nInvalid resolution.\n");
 	return (param);
 }
