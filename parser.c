@@ -6,105 +6,84 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 21:13:40 by truby             #+#    #+#             */
-/*   Updated: 2021/03/16 21:10:58 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 21:48:37 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static t_param			*check_and_spl(t_param *param, int gnl, char *mapline)
+static t_param	*check_and_spl(t_param *param, int gnl, char *mapline)
 {
-	if ((gnl == 0 && param->i <= 8) || gnl == -1)
-	{
-		free(param);
-		free(mapline);
-		return (ft_error(gnl == 0 && param->i <= 8 ? "Error\nNeed correct "
-		"config.\n" : "Error\nCan't read this config.\n"));
-	}
-	if (!(param->map = ft_split(mapline, '\n')))
-	{
-		free(param);
-		free(mapline);
-		return (ft_error("Error\nError of malloc.\n"));
-	}
+	if (gnl == 0 && param->i <= 8)
+		ft_error("Error\nNeed correct config.\n");
+	if (gnl == -1)
+		ft_error("Error\nCan't read this config.\n");
+	param->map = ft_split(mapline, '\n');
+	if (!param->map)
+		ft_error("Error\nError of malloc.\n");
 	free(mapline);
 	return (param);
 }
 
-static t_param			*ft_map(t_param *param, char *line, char **mapline)
+static t_param	*ft_map(t_param *param, char *line, char **mapline)
 {
-	if (param->i == 8)
-	{
-		param->i++;
+	if (param->i == 8 && param->i++)
 		return (param);
-	}
 	if (param->i >= 9)
 	{
-		if (ft_strchr(line, '1') || ft_strchr(line, ' '))
-		{
-			if (!(*mapline = ft_strjoin_cub(*mapline, line)))
-				return (ft_error("Error\nError of malloc.\n"));
-			param->i++;
-		}
+		if ((ft_strchr(line, '1') || ft_strchr(line, ' ')) && param->i++)
+			*mapline = ft_strjoin_cub(*mapline, line, -1, -1);
 		else
 		{
 			if (param->i > 9)
-				return (ft_error("Error\nInvalid map.\n"));
+				ft_error("Error\nInvalid map.\n");
 		}
 	}
 	return (param);
 }
 
-static t_param			*ft_search_letter(char *line, t_param *param, int *i)
+static t_param	*ft_search_letter(char *line, t_param *param, int *i)
 {
 	while (line[++(*i)] != '\0' && param->i < 8)
 	{
 		if (line[*i] > 64 && line[*i] < 91)
 		{
-			if (!(param = ft_parser_processor(line, *i, param)))
-				return (NULL);
-			else
-				break ;
+			param = ft_parser_processor(line, *i, param);
+			break ;
 		}
 		else if (line[*i] == ' ')
 		{
 			if (line[(*i) + 1] == '\0')
-				return (ft_error("Error\nInvalid config.\n"));
+				ft_error("Error\nInvalid config.\n");
 			else
 				continue ;
 		}
 		else
-		{
-			free(param);
-			free(line);
-			return (ft_error("Error\nInvalid config.\n"));
-		}
+			ft_error("Error\nInvalid config.\n");
 	}
 	*i = -1;
 	return (param);
 }
 
-int						ft_parser(t_param *param, int fd, int i)
+int	ft_parser(t_param *param, int fd, int i)
 {
 	char				*line;
 	int					gnl;
 	char				*mapline;
 
-	while ((gnl = get_next_line(fd, &line)) > 0)
+	gnl = get_next_line(fd, &line);
+	while (gnl > 0)
 	{
-		if (!(param = ft_search_letter(line, param, &i)))
-			return (-1);
-		if (param->i >= 8)
-			if (!(param = ft_map(param, line, &mapline)))
-				return (-1);
+		param = ft_search_letter(line, param, &i);
+		param = ft_map(param, line, &mapline);
 		free(line);
+		gnl = get_next_line(fd, &line);
 	}
-	if (!(mapline = ft_strjoin_cub(mapline, line)))
-		return (ft_error2("Error\nError of malloc.\n"));
+	mapline = ft_strjoin_cub(mapline, line, -1, -1);
 	free(line);
-	if (!(param = check_and_spl(param, gnl, mapline)))
-		return (-1);
-	if (!(param = valid_map(param, 0, 0, -1)))
+	param = check_and_spl(param, gnl, mapline);
+	valid_map(param, 0, 0, -1);
+	if (!param)
 		return (-1);
 	ft_mymlx(param, -1, -1, 0);
 	return (1);

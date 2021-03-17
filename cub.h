@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/03/16 21:23:15 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 21:45:42 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char 				*ft_error3(char *str);
 int 				ft_error2(char *str);
 t_param 			*ft_error(char *str);
 int 				ft_max_len(char *str, int k);
-char				*ft_strjoin_cub(char *s1, char *s2);
+char				*ft_strjoin_cub(char *s1, char *s2, int i, int j);
 t_param 			*ft_check_square(t_param *param, int end, int ml);
 t_param 			*ft_check_begin(t_param *param, int i);
 t_param 			*ft_check_middle(t_param  *param, int i, int j);

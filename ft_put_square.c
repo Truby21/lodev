@@ -6,16 +6,16 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:08:44 by truby             #+#    #+#             */
-/*   Updated: 2021/03/14 00:05:24 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 14:47:42 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		ft_put_square(t_param *param, int x, int y)
+int	ft_put_square(t_param *param, int x, int y)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = y;
 	j = x;
@@ -28,10 +28,10 @@ int		ft_put_square(t_param *param, int x, int y)
 	return (1);
 }
 
-int		ft_put_square1(t_param *param, int x, int y)
+int	ft_put_square1(t_param *param, int x, int y)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = y;
 	j = x;
@@ -44,10 +44,10 @@ int		ft_put_square1(t_param *param, int x, int y)
 	return (1);
 }
 
-int		ft_put_square_player(t_param *param, int x, int y)
+int	ft_put_square_player(t_param *param, int x, int y)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = y;
 	j = x;

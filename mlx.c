@@ -6,15 +6,15 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 22:10:26 by truby             #+#    #+#             */
-/*   Updated: 2021/03/15 22:58:57 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 14:49:11 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void				ft_mymlx(t_param *param, int i, int j, int x)
+void	ft_mymlx(t_param *param, int i, int j, int x)
 {
-	int				y;
+	int	y;
 
 	y = 0;
 	param->mlx = mlx_init();

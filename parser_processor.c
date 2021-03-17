@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:46:56 by truby             #+#    #+#             */
-/*   Updated: 2021/03/15 21:32:33 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/17 19:30:29 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_param				*ft_parser_processor(char *line, int i, t_param *param)
+t_param	*ft_parser_processor(char *line, int i, t_param *param)
 {
 	if (line[i] == 'R' && param->i++)
 		param = ft_res(param, line, i);
@@ -29,6 +29,6 @@ t_param				*ft_parser_processor(char *line, int i, t_param *param)
 	else if (line[i] == 'W' && line[++i] == 'E')
 		param = ft_we(param, line, i);
 	else
-		return (ft_error("Error\nInvalid config.\n"));
+		ft_error("Error\nInvalid config.\n");
 	return (param);
 }
