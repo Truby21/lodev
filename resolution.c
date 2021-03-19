@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 01:10:02 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 22:21:25 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/19 16:05:44 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_number(char *line, int *i, int *r, int max)
 		{
 			*r = max;
 			while (ft_isdigit(line[*i]))
-				i++;
+				(*i)++;
 			break ;
 		}
 	}
@@ -59,7 +59,7 @@ t_param	*ft_res(t_param *param, char *line, int i)
 	if (line[i + 1] != ' ')
 		ft_error("Error\nInvalid resolution.\n");
 	if (param->Rx == 0 && param->Ry == 0)
-		param = ft_find_xy(line, i, param);
+		ft_find_xy(line, i, param);
 	else
 		ft_error("Error\nDouble resolution.\n");
 	return (param);

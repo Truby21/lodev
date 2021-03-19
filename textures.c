@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 01:07:46 by truby             #+#    #+#             */
-/*   Updated: 2021/03/19 15:36:17 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/19 15:54:38 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_textures(char *line, int ind, int i)
 	texture = ft_substr(line, k, i);
 	if (!texture)
 		ft_error("Error\nError of malloc.\n");
-	if ((open(texture, O_RDONLY)) < 0)
+	if ((open(texture, O_RDONLY)) == -1)
 		ft_error("Error\nError of opening texture.\n");
 	else
 		close(i);

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 21:13:40 by truby             #+#    #+#             */
-/*   Updated: 2021/03/19 15:39:59 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/19 15:57:12 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_param	*ft_search_letter(char *line, t_param *param, int *i)
 	{
 		if (line[*i] > 64 && line[*i] < 91)
 		{
-			param = ft_parser_processor(line, *i, param);
+			ft_parser_processor(line, *i, param);
 			break ;
 		}
 		else if (line[*i] == ' ')
@@ -74,15 +74,15 @@ int	ft_parser(t_param *param, int fd, int i, char *mapline)
 	gnl = get_next_line(fd, &line);
 	while (gnl > 0)
 	{
-		param = ft_search_letter(line, param, &i);
-		param = ft_map(param, line, &mapline);
+		ft_search_letter(line, param, &i);
+		ft_map(param, line, &mapline);
 		free(line);
 		gnl = get_next_line(fd, &line);
 	}
 	mapline = ft_strjoin_cub(mapline, line, -1, -1);
 	free(line);
-	param = check_and_spl(param, gnl, mapline);
-	param = valid_map(param, 0, 0, -1);
+	check_and_spl(param, gnl, mapline);
+	valid_map(param, 0, 0, -1);
 	ft_mymlx(param, -1, -1, 0);
 	return (1);
 }

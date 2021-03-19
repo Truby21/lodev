@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:57:42 by truby             #+#    #+#             */
-/*   Updated: 2021/03/18 22:36:34 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/19 15:58:02 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ t_param	*ft_check_middle(t_param *param, int i, int j)
 		while (param->map[i][++j] != '\0')
 		{
 			if (param->map[i][j] == ' ')
-				param = ft_check_space(param, i, j);
+				ft_check_space(param, i, j);
 			else if (param->map[i][j] == '0' || param->map[i][j] == '2'
 				|| param->map[i][j] == 'N' || param->map[i][j] == 'S'
 				||param->map[i][j] == 'E' || param->map[i][j] == 'W')
-				param = ft_check_zero(param, i, j);
+				ft_check_zero(param, i, j);
 			else if (param->map[i][j] == '1')
 				continue ;
 			else
