@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:57:42 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 22:20:26 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:36:34 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static t_param	*ft_check_zero(t_param *param, int i, int j)
 		ft_error("Error\nInvalid map.\n");
 	if (ft_isalpha(param->map[i][j]))
 	{
+		param->plx = j;
+		param->ply = i;
 		param->player++;
 		if (param->player > 1)
 			ft_error("Error\nDouble player.\n");
