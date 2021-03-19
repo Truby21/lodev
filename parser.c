@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 21:13:40 by truby             #+#    #+#             */
-/*   Updated: 2021/03/19 14:22:00 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/19 15:39:59 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ static t_param	*ft_search_letter(char *line, t_param *param, int *i)
 	return (param);
 }
 
-int	ft_parser(t_param *param, int fd, int i)
+int	ft_parser(t_param *param, int fd, int i, char *mapline)
 {
 	char				*line;
 	int					gnl;
-	char				*mapline = NULL;
 
+	line = NULL;
 	gnl = get_next_line(fd, &line);
 	while (gnl > 0)
 	{

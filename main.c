@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:39:15 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 22:29:53 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/19 15:38:55 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int	main(int argc, char **argv)
 	param->c_color = 0;
 	param->i = 1;
 	param->player = 0;
-	return (ft_parser(param, fd, -1));
+	return (ft_parser(param, fd, -1, NULL));
 }
