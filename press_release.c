@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   press_release.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/24 00:27:44 by truby             #+#    #+#             */
-/*   Updated: 2021/03/20 22:36:46 by truby            ###   ########.fr       */
+/*   Created: 2021/03/20 22:47:23 by truby             #+#    #+#             */
+/*   Updated: 2021/03/20 23:28:22 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	ft_error(char *str)
+int press(int key, t_data *data)
 {
-	write(1, str, ft_strlen(str));
-	exit(0);
+	// printf("key:%d", key);
+	if (key == 1)
+		data->key.left = 1;
+	return(0);
+}
+
+int release(int key, t_data *data)
+{
+	if (key == 1)
+		data->key.left = 0;
+	return(0);
 }

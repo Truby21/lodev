@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 22:10:26 by truby             #+#    #+#             */
-/*   Updated: 2021/03/18 22:48:57 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/20 21:48:20 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	ft_mymlx(t_param *param, int i, int j, int x)
 		{
 			x = x + 30;
 			if (param->map[i][j] == '1')
-				ft_put_square(img, x, y);
+				ft_put_square(&img, x, y);
 			else if (param->map[i][j] == '0')
-				ft_put_square1(img, x, y);
+				ft_put_square1(&img, x, y);
 			else if (param->map[i][j] == 'N')
-				ft_put_square_player(img, x, y);
+				ft_put_square_player(&img, x, y);
 			else
 				continue ;
 		}

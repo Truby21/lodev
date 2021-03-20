@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/03/19 15:39:09 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 01:42:42 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,46 @@ typedef struct	s_param
 	void		*mlx;
 	void		*win;
 	int			player;
-	int			plx;
-	int			ply;
+	int			screen;
+	int			map_width;
+	int			map_height;
 }				t_param;
 
-typedef struct  s_data {
-    void        *img;
+typedef	struct s_key
+{
+	int			up;
+	int			down;
+	int			left;
+	int			right;
+	int			esc;
+	int			camright;
+	int			camleft;
+}				t_key;
+
+typedef	struct	s_img
+{
+	void        *img;
     char        *addr;
     int         bits_per_pixel;
     int         line_length;
     int         endian;
+	int			plx;
+	int			ply;
+}				t_img;
+
+typedef struct	s_sprite
+{
+	int			len;
+}				t_sprite;
+
+typedef struct  s_data 
+{
+	t_img		img;
+	t_key		key;
+	t_param		param;
+	t_sprite	sprite;
 }               t_data;
+
 
 void 				ft_error(char *str);
 int 				ft_max_len(char *str, int k);
@@ -56,11 +85,11 @@ t_param 			*ft_check_square(t_param *param, int end, int ml);
 t_param 			*ft_check_begin(t_param *param, int i);
 t_param 			*ft_check_middle(t_param  *param, int i, int j);
 t_param 			*ft_check_end(t_param *param, int end, int i);
-t_param 			*valid_map(t_param *param, int qstr, int maxlen, int i);
+t_param 			*valid_map(t_param *param, int i);
 char 				*ft_textures(char *line, int ind, int i);
-int					ft_put_square(t_data data, int x, int y);
-int					ft_put_square1(t_data data, int x, int y);
-int					ft_put_square_player(t_data data, int x, int y);
+int					ft_put_square(t_data *data, int x, int y);
+int					ft_put_square1(t_data *data, int x, int y);
+int					ft_put_square_player(t_data *data, int x, int y);
 int 				ft_parser(t_param *param, int fd, int i, char *mapline);
 t_param				*ft_parser_processor(char *line, int i, t_param *param);
 t_param				*ft_res(t_param *param, char *line, int i);
@@ -71,5 +100,11 @@ t_param				*ft_s(t_param *param, char *line, int i);
 t_param				*ft_ea(t_param *param, char *line, int i);
 t_param				*ft_we(t_param *param, char *line, int i);
 void				ft_mymlx(t_param *param, int i, int j, int x);
+void				init_struct(t_data *data);
+int					press(int key, t_data *data);
+int					release(int key, t_data *data);
+int					render(t_data *data);
+void				screensize(t_data *data);
+void				save_screen(t_data *data);
 
 #endif
