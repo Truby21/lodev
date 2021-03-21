@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:57:42 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 17:56:08 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 20:25:19 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,25 @@ static t_param	*ft_check_space(t_param *param, int i, int j)
 
 static t_param	*ft_check_zero(t_param *param, int i, int j)
 {
-	if (param->map[i - 1][j - 1] == ' ')
+	if (param->map[i - 1][j - 1] == ' '
+		|| param->map[i - 1][j] == ' '
+		|| param->map[i - 1][j + 1] == ' ')
 		ft_error("Error\nInvalid map.\n", param);
-	if (param->map[i - 1][j] == ' ')
+	if (param->map[i][j - 1] == ' '
+		|| param->map[i][j + 1] == ' ')
 		ft_error("Error\nInvalid map.\n", param);
-	if (param->map[i - 1][j + 1] == ' ')
-		ft_error("Error\nInvalid map.\n", param);
-	if (param->map[i][j - 1] == ' ')
-		ft_error("Error\nInvalid map.\n", param);
-	if (param->map[i][j + 1] == ' ')
-		ft_error("Error\nInvalid map.\n", param);
-	if (param->map[i + 1][j - 1] == ' ')
-		ft_error("Error\nInvalid map.\n", param);
-	if (param->map[i + 1][j] == ' ')
-		ft_error("Error\nInvalid map.\n", param);
-	if (param->map[i + 1][j + 1] == ' ')
+	if (param->map[i + 1][j - 1] == ' '
+		|| param->map[i + 1][j] == ' '
+		|| param->map[i + 1][j + 1] == ' ')
 		ft_error("Error\nInvalid map.\n", param);
 	if (param->map[i][j] == '2')
 		param->qua_sprite++;
 	if (ft_isalpha(param->map[i][j]))
 	{
-		param->player++;
-		if (param->player > 1)
+		param->ply = (double)i;
+		param->plx = (double)j;
+		param->fl_player++;
+		if (param->fl_player > 1)
 			ft_error("Error\nDouble player.\n", param);
 	}
 	return (param);
@@ -84,7 +81,7 @@ t_param	*ft_check_middle(t_param *param, int i, int j)
 		}
 		j = 0;
 	}
-	if (param->player == 0)
+	if (param->fl_player == 0)
 		ft_error("Error\nNeed player.\n", param);
 	return (param);
 }

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:27:44 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 18:19:16 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 20:36:48 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_error(char *str, t_param *param)
 {
 	if (param != NULL)
 		clear_param(param, -1);
-	write(1, str, ft_strlen(str));
+	if (str != NULL)
+		write(1, str, ft_strlen(str));
 	exit(0);
 }

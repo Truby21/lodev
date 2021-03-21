@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 18:29:19 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 21:46:21 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct	s_param
 	char 		**map;
 	int 		i;
 	int			fl_player;
+	double		plx;
+	double		ply;
 	int			screen;
 	int			map_width;
 	int			map_height;
@@ -61,8 +63,6 @@ typedef	struct	s_img
     int         bits_per_pixel;
     int         line_length;
     int         endian;
-	int			plx;
-	int			ply;
 }				t_img;
 
 // typedef struct	s_sprite
@@ -87,10 +87,10 @@ t_param 			*ft_check_begin(t_param *param, int i);
 t_param 			*ft_check_middle(t_param  *param, int i, int j);
 t_param 			*ft_check_end(t_param *param, int end, int i);
 t_param 			*valid_map(t_param *param, int i);
-char 				*ft_textures(char *line, int ind, int i);
-int					ft_put_square(t_data *data, int x, int y);
-int					ft_put_square1(t_data *data, int x, int y);
-int					ft_put_square_player(t_data *data, int x, int y);
+char 				*ft_textures(t_param *param, char *line, int ind, int i);
+// int					ft_put_square(t_data *data, int x, int y);
+// int					ft_put_square1(t_data *data, int x, int y);
+// int					ft_put_square_player(t_data *data, int x, int y);
 int 				ft_parser(t_param *param, int fd, int i);
 t_param				*ft_parser_processor(char *line, int i, t_param *param);
 t_param				*ft_res(t_param *param, char *line, int i);
@@ -107,5 +107,9 @@ int					release(int key, t_data *data);
 int					render(t_data *data);
 void				screensize(t_data *data);
 void				save_screen(t_data *data);
+void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void				draw_floor_ceiling(t_data *data, int x, int y);
+void				draw_texture(t_data *data);
+int					ft_exit(int key, t_data *data);
 
 #endif

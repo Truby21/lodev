@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:47:23 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 16:27:51 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 21:46:54 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int press(int key, t_data *data)
 	if (key == 124)
 		data->key.camright = 1;
 	if (key == 53)
-		ft_exit(data);	
+		ft_error(NULL, &data->param);	
 	return(0);
 }
 
@@ -46,4 +46,10 @@ int release(int key, t_data *data)
 	if (key == 124)
 		data->key.camright = 0;
 	return(0);
+}
+
+int	ft_exit(int key, t_data *data)
+{
+	ft_error(NULL, &data->param);
+	return (0);
 }
