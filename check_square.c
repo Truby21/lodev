@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:54:51 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 22:20:46 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 17:54:56 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_param	*ft_check_first_line(t_param *param, int i)
 	{
 		if (ft_isprint(param->map[0][i]) && param->map[0][i] != '1'
 			&& param->map[0][i] != ' ')
-			ft_error("Error\nInvalid map.\n");
+			ft_error("Error\nInvalid map.\n", param);
 	}
 	return (param);
 }
@@ -29,7 +29,7 @@ static t_param	*ft_check_last_line(t_param *param, int end, int i)
 	{
 		if (ft_isprint(param->map[end][i]) && param->map[end][i] != '1'
 			&& param->map[end][i] != ' ')
-			ft_error("Error\nInvalid map.\n");
+			ft_error("Error\nInvalid map.\n", param);
 	}
 	return (param);
 }
@@ -40,7 +40,7 @@ static t_param	*ft_check_left_line(t_param *param, int end, int i)
 	{
 		if (ft_isprint(param->map[i][0]) && param->map[i][0] != '1'
 			&& param->map[i][0] != ' ')
-			ft_error("Error\nInvalid map.\n");
+			ft_error("Error\nInvalid map.\n", param);
 	}
 	return (param);
 }
@@ -54,7 +54,7 @@ static t_param	*ft_check_right_line(t_param *param, int end, int ml)
 	{
 		if (ft_isprint(param->map[i][ml]) && param->map[i][ml] != '1'
 			&& param->map[i][ml] != ' ')
-			ft_error("Error\nInvalid map.\n");
+			ft_error("Error\nInvalid map.\n", param);
 	}
 	return (param);
 }

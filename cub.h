@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 01:42:42 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 18:29:19 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,23 @@
 
 typedef struct	s_param
 {
-	int			Rx;
-	int 		Ry;
-	char 		*NO;
-	char 		*SO;
-	char 		*WE;
-	char 		*EA;
-	char 		*S;
+	int			rx;
+	int 		ry;
+	char 		*no;
+	char 		*so;
+	char 		*we;
+	char 		*ea;
+	char 		*sp;
+	char		*mapline;
 	int 		f_color;
 	int 		c_color;
 	char 		**map;
 	int 		i;
-	int			fd;
-	void		*mlx;
-	void		*win;
-	int			player;
+	int			fl_player;
 	int			screen;
 	int			map_width;
 	int			map_height;
+	int			qua_sprite;
 }				t_param;
 
 typedef	struct s_key
@@ -55,6 +54,8 @@ typedef	struct s_key
 
 typedef	struct	s_img
 {
+	void		*mlx;
+	void		*win;
 	void        *img;
     char        *addr;
     int         bits_per_pixel;
@@ -64,23 +65,23 @@ typedef	struct	s_img
 	int			ply;
 }				t_img;
 
-typedef struct	s_sprite
-{
-	int			len;
-}				t_sprite;
+// typedef struct	s_sprite
+// {
+	
+// }				t_sprite;
 
 typedef struct  s_data 
 {
 	t_img		img;
 	t_key		key;
 	t_param		param;
-	t_sprite	sprite;
+	// t_sprite	sprite;
 }               t_data;
 
 
-void 				ft_error(char *str);
+void				ft_error(char *str, t_param *param);
 int 				ft_max_len(char *str, int k);
-char				*ft_strjoin_cub(char *s1, char *s2, int i, int j);
+char				*ft_strjoin_cub(t_param *param, char *s2, int i, int j);
 t_param 			*ft_check_square(t_param *param, int end, int ml);
 t_param 			*ft_check_begin(t_param *param, int i);
 t_param 			*ft_check_middle(t_param  *param, int i, int j);
@@ -90,7 +91,7 @@ char 				*ft_textures(char *line, int ind, int i);
 int					ft_put_square(t_data *data, int x, int y);
 int					ft_put_square1(t_data *data, int x, int y);
 int					ft_put_square_player(t_data *data, int x, int y);
-int 				ft_parser(t_param *param, int fd, int i, char *mapline);
+int 				ft_parser(t_param *param, int fd, int i);
 t_param				*ft_parser_processor(char *line, int i, t_param *param);
 t_param				*ft_res(t_param *param, char *line, int i);
 t_param				*ft_col(t_param *param, char *line, int i);

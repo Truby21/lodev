@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:46:56 by truby             #+#    #+#             */
-/*   Updated: 2021/03/19 15:59:21 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 17:51:44 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ t_param	*ft_parser_processor(char *line, int i, t_param *param)
 	else if (line[i] == 'W' && line[++i] == 'E')
 		ft_we(param, line, i);
 	else
-		ft_error("Error\nInvalid config.\n");
+		ft_error("Error\nInvalid config.\n", param);
 	return (param);
 }

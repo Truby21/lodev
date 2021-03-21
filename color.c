@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 01:08:35 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 22:21:05 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 17:52:54 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,17 @@ static int	ft_color(char *line, int r, int g, int i)
 t_param	*ft_col(t_param *param, char *line, int i)
 {
 	if (line[i + 1] != ' ')
-		ft_error("Error\nInvalid color.\n");
+		ft_error("Error\nInvalid color.\n", param);
 	if (line[i] == 'F')
 	{
 		if (param->f_color == 0)
 		{
 			param->f_color = ft_color(line, 0, 0, i);
 			if (param->f_color == -1)
-				ft_error("Error\nInvalid floor color.\n");
+				ft_error("Error\nInvalid floor color.\n", param);
 		}
 		else
-			ft_error("Error\nDouble floor color.\n");
+			ft_error("Error\nDouble floor color.\n", param);
 	}
 	if (line[i] == 'C')
 	{
@@ -94,10 +94,10 @@ t_param	*ft_col(t_param *param, char *line, int i)
 		{
 			param->c_color = ft_color(line, 0, 0, i);
 			if (param->c_color == -1)
-				ft_error("Error\nInvalid ceiling color.\n");
+				ft_error("Error\nInvalid ceiling color.\n", param);
 		}
 		else
-			ft_error("Error\nDouble ceiling color.\n");
+			ft_error("Error\nDouble ceiling color.\n", param);
 	}
 	return (param);
 }

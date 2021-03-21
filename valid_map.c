@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 01:00:33 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 00:50:13 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 17:54:33 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_param	*valid_map(t_param *param, int i)
 		r = param->map_width - ft_strlen_int(param->map[i]);
 		str = ft_calloc_char(r, ' ');
 		if (!str)
-			ft_error("Error\nError of malloc.\n");
+			ft_error("Error\nError of malloc.\n", param);
 		param->map[i] = ft_strjoin_gnl(param->map[i], str);
 		free(str);
 	}

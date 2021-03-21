@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 18:11:53 by truby             #+#    #+#             */
-/*   Updated: 2021/03/17 19:46:03 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 18:17:08 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,72 +15,72 @@
 t_param	*ft_no(t_param *param, char *line, int i)
 {
 	if (line[i + 1] != ' ')
-		ft_error("Error\nInvalid north texture.\n");
-	if (param->NO == NULL)
+		ft_error("Error\nInvalid north texture.\n", param);
+	if (param->no == NULL)
 	{	
-		param->NO = ft_textures(line, i, 0);
-		if (!param->NO)
-			ft_error("Error\nInvalid north texture.\n");
+		param->no = ft_textures(line, i, 0);
+		if (!param->no)
+			ft_error("Error\nInvalid north texture.\n", param);
 	}
 	else
-		ft_error("Error\nDouble north texture.\n");
+		ft_error("Error\nDouble north texture.\n", param);
 	return (param);
 }
 
 t_param	*ft_so(t_param *param, char *line, int i)
 {
 	if (line[i + 1] != ' ')
-		ft_error("Error\nInvalid south texture.\n");
-	if (param->SO == NULL)
+		ft_error("Error\nInvalid south texture.\n", param);
+	if (param->so == NULL)
 	{
-		param->SO = ft_textures(line, i, 0);
-		if (!param->SO)
-			ft_error("Error\nInvalid south texture.\n");
+		param->so = ft_textures(line, i, 0);
+		if (!param->so)
+			ft_error("Error\nInvalid south texture.\n", param);
 	}
 	else
-		ft_error("Error\nDouble south texture.\n");
+		ft_error("Error\nDouble south texture.\n", param);
 	return (param);
 }
 
 t_param	*ft_ea(t_param *param, char *line, int i)
 {
 	if (line[i + 1] != ' ')
-		ft_error("Error\nInvalid east texture.\n");
-	if (param->EA == NULL)
+		ft_error("Error\nInvalid east texture.\n", param);
+	if (param->ea == NULL)
 	{
-		param->EA = ft_textures(line, i, 0);
-		if (!param->EA)
-			ft_error("Error\nInvalid east texture.\n");
+		param->ea = ft_textures(line, i, 0);
+		if (!param->ea)
+			ft_error("Error\nInvalid east texture.\n", param);
 	}
 	else
-		ft_error("Error\nDouble east texture.\n");
+		ft_error("Error\nDouble east texture.\n", param);
 	return (param);
 }
 
 t_param	*ft_we(t_param *param, char *line, int i)
 {
 	if (line[i + 1] != ' ')
-		ft_error("Error\nInvalid west texture.\n");
-	if (param->WE == NULL)
+		ft_error("Error\nInvalid west texture.\n", param);
+	if (param->we == NULL)
 	{
-		param->WE = ft_textures(line, i, 0);
-		if (!param->WE)
-			ft_error("Error\nInvalid west texture.\n");
+		param->we = ft_textures(line, i, 0);
+		if (!param->we)
+			ft_error("Error\nInvalid west texture.\n", param);
 	}
 	else
-		ft_error("Error\nDouble west texture.\n");
+		ft_error("Error\nDouble west texture.\n", param);
 	return (param);
 }
 
 t_param	*ft_s(t_param *param, char *line, int i)
 {
-	if (param->S == NULL)
+	if (param->sp == NULL)
 	{
-		param->S = ft_textures(line, i, 0);
-		if (!param->S)
-			ft_error("Error\nInvalid sprite texture.\n");
+		param->sp = ft_textures(line, i, 0);
+		if (!param->sp)
+			ft_error("Error\nInvalid sprite texture.\n", param);
 	}
 	else
-		ft_error("Error\nDouble sprite texture.\n");
+		ft_error("Error\nDouble sprite texture.\n", param);
 	return (param);
 }
