@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/03/22 20:27:03 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/23 15:38:40 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct	s_param
 	int			fl_player;
 	double		plx;
 	double		ply;
+	double		viewx;
+	double		viewy;
 	int			screen;
 	int			map_width;
 	int			map_height;

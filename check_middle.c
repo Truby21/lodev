@@ -6,11 +6,23 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:57:42 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 20:25:19 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/23 19:17:44 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+static void	view(t_param *param, int i, int j)
+{
+	if (param->map[i][j] == 'N')
+		param->viewy = -1;
+	if (param->map[i][j] == 'S')
+		param->viewy = 1;
+	if (param->map[i][j] == 'W')
+		param->viewx = -1;
+	if (param->map[i][j] == 'E')
+		param->viewx = 1;
+}
 
 static t_param	*ft_check_space(t_param *param, int i, int j)
 {
@@ -53,6 +65,7 @@ static t_param	*ft_check_zero(t_param *param, int i, int j)
 		param->qua_sprite++;
 	if (ft_isalpha(param->map[i][j]))
 	{
+		view(param, i, j);
 		param->ply = (double)i;
 		param->plx = (double)j;
 		param->fl_player++;

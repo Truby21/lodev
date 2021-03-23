@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:39:15 by truby             #+#    #+#             */
-/*   Updated: 2021/03/23 00:00:24 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/23 15:59:21 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ int	main(int argc, char **argv)
 	mlx_hook(data.img.win, 17, 0, &ft_exit, &data);
 	mlx_loop_hook(data.img.mlx, &render, &data);
 	mlx_loop(data.img.mlx);
-	// exit(0);
+	exit(0);
 }

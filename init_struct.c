@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:30:46 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 21:23:22 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/23 15:40:53 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void init_struct(t_data *data)
 	data->param.qua_sprite = 0;
 	data->param.plx = 0;
 	data->param.ply = 0;
+	data->param.viewx = 0;
+	data->param.viewy = 0;
 	data->img.bits_per_pixel = 0;
 	data->img.endian = 0;
 	data->img.line_length = 0;
