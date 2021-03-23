@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 23:06:45 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 21:39:35 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/21 22:31:58 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_floor_ceiling(t_data *data, int x, int y)
 			my_mlx_pixel_put(data, x, y, data->param.c_color);
 		x = -1;
 	}
-	while (y <= data->param.ry)
+	while (y <= data->param.ry - 1)
 	{
 		while (++x != data->param.rx)
 			my_mlx_pixel_put(data, x, y, data->param.f_color);

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:51:33 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 21:05:36 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/22 23:42:29 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int render(t_data *data)
 	// if (data->param.screen)
 	// 	screenshot(data); // сам скриншот
 	// else
-		mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
+	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
 	mlx_destroy_image(data->img.mlx, data->img.img);
 	data->img.img = NULL;
 	return(0);
