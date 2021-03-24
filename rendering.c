@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:51:33 by truby             #+#    #+#             */
-/*   Updated: 2021/03/24 17:03:18 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/24 21:07:22 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int render(t_data *data)
 	// 	screenshot(data); // сам скриншот
 	// else
 	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
-	//mlx_destroy_image(data->img.mlx, data->img.img);
+	mlx_destroy_image(data->img.mlx, data->img.img);
 	data->img.img = NULL;
 	return(0);
 }

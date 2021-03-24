@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 16:31:38 by truby             #+#    #+#             */
-/*   Updated: 2021/03/24 18:22:33 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/24 23:52:53 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,45 +130,36 @@ void	draw_texture(t_data *data)
     double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
     if(data->key.up)			//move forward if no wall in front of you
     {
-		// printf("x = %i\n", (int)data->param.plx);
-		// printf("y = %i\n", (int)data->param.ply);
-		// printf("dirx = %i\n", (int)data->param.viewx);
-		// printf("diry = %i\n", (int)data->param.viewy);
-		// printf("symb - %c\n", data->param.map[(int)(data->param.plx + data->param.viewx * moveSpeed)][(int)data->param.ply]);
-    //   if(data->param.map[(int)(data->param.player_x + data->param.viewx * moveSpeed)][(int)data->param.player_y] == '0')
-	//   	data->param.player_x += data->param.viewx * moveSpeed;
-    //   if(data->param.map[(int)data->param.player_x][(int)(data->param.player_y + data->param.viewy * moveSpeed)] == '0')
-	//   	data->param.player_y += data->param.viewy * moveSpeed;
 		if(data->param.map[(int)data->param.player_y][(int)(data->param.player_x + data->param.viewx * moveSpeed)] == '0')
+		{
+			printf("x before - %i\n", (int)data->param.player_x);
 	  		data->param.player_x += data->param.viewx * moveSpeed;
+			printf("x after - %i\n", (int)data->param.player_x);
+		}
     	if(data->param.map[(int)(data->param.player_y + data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
 	  		data->param.player_y += data->param.viewy * moveSpeed;
     }
-    if(data->key.down)		//move backwards if no wall behind you
+    if (data->key.down)		//move backwards if no wall behind you
     {
-    //   if(data->param.map[(int)(data->param.player_x - data->param.viewx * moveSpeed)][(int)data->param.player_y] == '0')
-	//   	data->param.player_x -= data->param.viewx * moveSpeed;
-    //   if(data->param.map[(int)data->param.player_x][(int)(data->param.player_y - data->param.viewy * moveSpeed)] == '0')
-	//   	data->param.player_y -= data->param.viewy * moveSpeed;
-		if(data->param.map[(int)data->param.player_y][(int)(data->param.player_x - data->param.viewx * moveSpeed)] == '0')
+		if (data->param.map[(int)data->param.player_y][(int)(data->param.player_x - data->param.viewx * moveSpeed)] == '0')
 	  		data->param.player_x -= data->param.viewx * moveSpeed;
-    	if(data->param.map[(int)(data->param.player_y - data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
+    	if (data->param.map[(int)(data->param.player_y - data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
 	  		data->param.player_y -= data->param.viewy * moveSpeed;
     }
-	// if(data->key.left)
-	// {
-	// 	if(data->param.map[][] == '0')
-
-	// 	if(data->param.map[][] == '0')
-
-	// }
-	// if(data->key.right)
-	// {
-	// 	if(data->param.map[][] == '0')
-
-	// 	if(data->param.map[][] == '0')
-
-	// }
+	if (data->key.right)
+	{
+		if (data->param.map[(int)data->param.player_y][(int)(data->param.player_x + data->param.viewx * moveSpeed)] == '0')
+			data->param.player_y += data->param.viewx * moveSpeed;
+		if (data->param.map[(int)(data->param.player_y + data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
+	  		data->param.player_x -= data->param.viewy * moveSpeed;
+	}
+	if (data->key.left)
+	{
+		if(data->param.map[(int)data->param.player_y][(int)(data->param.player_x - data->param.viewx * moveSpeed)] == '0')
+	  		data->param.player_y -= data->param.viewx * moveSpeed;
+    	if(data->param.map[(int)(data->param.player_y - data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
+	  		data->param.player_x += data->param.viewy * moveSpeed;
+	}
     if (data->key.camleft)		//rotate to the left
     {
       double oldDirX = data->param.viewx;
