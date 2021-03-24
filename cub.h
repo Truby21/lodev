@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/03/23 15:38:40 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/24 16:52:05 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "./libft/libft.h"
 # include "./libft/get_next_line.h"
 # include <stdio.h>
-# include "./minilibx_opengl_20191021/mlx.h"
+# include "./minilibx/mlx.h"
 # include "math.h"
 
 typedef struct	s_param
@@ -35,10 +35,12 @@ typedef struct	s_param
 	char 		**map;
 	int 		i;
 	int			fl_player;
-	double		plx;
-	double		ply;
+	double		player_x;
+	double		player_y;
 	double		viewx;
 	double		viewy;
+	double		plane_x;
+	double		plane_y;
 	int			screen;
 	int			map_width;
 	int			map_height;
@@ -61,7 +63,7 @@ typedef	struct	s_img
 	void		*mlx;
 	void		*win;
 	void        *img;
-    char        *addr;
+    void        *addr;
     int         bits_per_pixel;
     int         line_length;
     int         endian;

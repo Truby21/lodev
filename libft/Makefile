@@ -6,7 +6,7 @@
 #    By: truby <truby@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 21:11:17 by truby             #+#    #+#              #
-#    Updated: 2021/02/17 00:03:37 by truby            ###   ########.fr        #
+#    Updated: 2021/03/24 14:41:24 by truby            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,10 @@ HEADERS = libft.h get_next_line.h
 all: $(NAME)
 
 $(NAME): $(O_FILES)
-	ar -rcs $(NAME) $(O_FILES)
+	@ar -rcs $(NAME) $(O_FILES)
 
 %.o: %.c $(HEADERS)
-	gcc -Wall -Wextra -Werror -c $<
+	@gcc -Wall -Wextra -Werror -c $<
 
 bonus:
 	$(MAKE) COMPILE_BONUS=1 all

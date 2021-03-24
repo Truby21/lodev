@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:30:46 by truby             #+#    #+#             */
-/*   Updated: 2021/03/23 15:40:53 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/24 15:33:14 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void init_struct(t_data *data)
 	data->param.map_width = 0;
 	data->param.map_height = 0;
 	data->param.qua_sprite = 0;
-	data->param.plx = 0;
-	data->param.ply = 0;
+	data->param.player_x = 0;
+	data->param.player_y = 0;
 	data->param.viewx = 0;
 	data->param.viewy = 0;
+	data->param.plane_x = 0.66;
+	data->param.plane_y = 0;
 	data->img.bits_per_pixel = 0;
 	data->img.endian = 0;
 	data->img.line_length = 0;

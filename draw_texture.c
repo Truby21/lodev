@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 16:31:38 by truby             #+#    #+#             */
-/*   Updated: 2021/03/23 19:11:49 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/24 18:22:33 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,21 @@ void	draw_texture(t_data *data)
 {
  	// double posX = 22, posY = 12;  //x and y start position   							//положение игрока
   	// double dirX = 1, dirY = 0; //initial direction vector							//направление взгляда
-  	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane 		//поле зрения
-  	int		w = 1920;
-  	int		h = 1080;
+  	//double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane 		//поле зрения
   	int		y;
   	int		x = -1;
 
-	double time = 5; //time of current frame
+	double time = 10; //time of current frame
 	double oldTime = 0; //time of previous frame
-    while (++x < w)
+    while (++x < data->param.rx)
     {
       	//calculate ray position and direction
-      	double cameraX = 2 * x / (double)w - 1; 				//x-coordinate in camera space	//средний х
-      	double rayDirX = data->param.viewx + planeX * cameraX;									//направление луча по х
-      	double rayDirY = data->param.viewy + planeY * cameraX;									//направление луча по у
+      	double cameraX = 2 * x / (double)data->param.rx - 1; 				//x-coordinate in camera space	//средний х
+      	double rayDirX = data->param.viewx + data->param.plane_x * cameraX;									//направление луча по х
+      	double rayDirY = data->param.viewy + data->param.plane_y * cameraX;									//направление луча по у
       	//which box of the map we're in
-      	int mapX = data->param.plx;														//константа с положением игрока по х
-      	int mapY = data->param.ply;														//константа с положением игрока по у
+      	int mapX = data->param.player_x;														//константа с положением игрока по х
+      	int mapY = data->param.player_y;														//константа с положением игрока по у
       	//length of ray from current position to next x or y-side
       	double sideDistX;															//расстояние до ближайшего пересечения по х
       	double sideDistY;															//расстояние до ближайшего пересечения по у
@@ -51,27 +49,27 @@ void	draw_texture(t_data *data)
       	if(rayDirX < 0)
       	{
         	stepX = -1;
-        	sideDistX = (data->param.plx - mapX) * deltaDistX;
+        	sideDistX = (data->param.player_x - mapX) * deltaDistX;
       	}
       	else
       	{
         	stepX = 1;
-        	sideDistX = (mapX + 1.0 - data->param.plx) * deltaDistX;
+        	sideDistX = (mapX + 1.0 - data->param.player_x) * deltaDistX;
       	}
       	if(rayDirY < 0)
       	{
         	stepY = -1;
-        	sideDistY = (data->param.ply - mapY) * deltaDistY;
+        	sideDistY = (data->param.player_y - mapY) * deltaDistY;
       	}
       	else
       	{
         	stepY = 1;
-        	sideDistY = (mapY + 1.0 - data->param.ply) * deltaDistY;
+        	sideDistY = (mapY + 1.0 - data->param.player_y) * deltaDistY;
       	}
       	//perform DDA
       	while (hit == 0)
       	{
-        //jump to next map square, OR in x-direction, OR in y-direction
+        	//jump to next map square, OR in x-direction, OR in y-direction
         	if (sideDistX < sideDistY)
         	{
         		sideDistX += deltaDistX;
@@ -84,41 +82,42 @@ void	draw_texture(t_data *data)
         		mapY += stepY;
         		side = 1;
         	}
-        //Check if ray has hit a wall
+        	//Check if ray has hit a wall
 
         	if (data->param.map[mapY][mapX] == '1')
 				hit = 1;
       	}
       	//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
       	if (side == 0)
-			perpWallDist = (mapX - data->param.plx + (1 - stepX) / 2) / rayDirX;		//расстояние до стены
+			perpWallDist = (mapX - data->param.player_x + (1 - stepX) / 2) / rayDirX;		//расстояние до стены
       	else
-	  		perpWallDist = (mapY - data->param.ply + (1 - stepY) / 2) / rayDirY;
+	  		perpWallDist = (mapY - data->param.player_y + (1 - stepY) / 2) / rayDirY;
       	//Calculate height of line to draw on screen
-      	double lineHeight = (int)(h / perpWallDist);										//высота стены
+      	double lineHeight = (int)(data->param.ry / perpWallDist);										//высота стены
       	//calculate lowest and highest pixel to fill in current stripe
-      	int drawStart = -lineHeight / 2 + h / 2;										//самый низкий и самый высокий пиксель
-      	if(drawStart < 0)
+      	int drawStart = -lineHeight / 2 + data->param.ry / 2;										//самый низкий и самый высокий пиксель
+      	if (drawStart < 0)
 	  		drawStart = 0;
-      	int drawEnd = lineHeight / 2 + h / 2;											//самый низкий и самый высокий пиксель
-      	if(drawEnd >= h)
-	  		drawEnd = h;
+      	int drawEnd = lineHeight / 2 + data->param.ry / 2;											//самый низкий и самый высокий пиксель
+      	if (drawEnd >= data->param.ry)
+	  		drawEnd = data->param.ry;
 		//choose wall color
-    	//   ColorRGB color;
-    	//   switch(worldMap[mapX][mapY])
-    	//   {
-    	//     case 1:  color = RGB_Red;    break; //red
-    	//     case 2:  color = RGB_Green;  break; //green
-    	//     case 3:  color = RGB_Blue;   break; //blue
-    	//     case 4:  color = RGB_White;  break; //white
-    	//     default: color = RGB_Yellow; break; //yellow
-    	//   }
+		// int color;
+    	// switch(data->param.map[mapX][mapY])
+    	// {
+    	//     case 1:  color = 0xFF0000;    break; //red
+    	//     case 2:  color = 0x00FF00;  break; //green
+    	//     case 3:  color = 0x0000FF;   break; //blue
+    	//     default: color = 0xFFFFFF; break; //yellow
+    	// }
       	//give x and y sides different brightness
+		//   if (side == 1) 
+		//   	color = color / 2;
       	//draw the pixels of the stripe as a vertical line
 	  	y = drawStart - 1;
 	  	while (++y < drawEnd)
-			my_mlx_pixel_put(data, x, y, 0x11AAAA);										//рисуем стены
-	} 
+			my_mlx_pixel_put(data, x, y, 0xF000FF);										//рисуем стены
+	}
     //timing for input and FPS counter
     // oldTime = time;
     // time = getTicks();
@@ -131,17 +130,30 @@ void	draw_texture(t_data *data)
     double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
     if(data->key.up)			//move forward if no wall in front of you
     {
-      if(data->param.map[(int)(data->param.plx + data->param.viewx * moveSpeed)][(int)data->param.plx] == '0')
-	  	data->param.plx += data->param.viewx * moveSpeed;
-      if(data->param.map[(int)data->param.plx][(int)(data->param.ply + data->param.viewy * moveSpeed)] == '0')
-	  	data->param.ply += data->param.viewy * moveSpeed;
+		// printf("x = %i\n", (int)data->param.plx);
+		// printf("y = %i\n", (int)data->param.ply);
+		// printf("dirx = %i\n", (int)data->param.viewx);
+		// printf("diry = %i\n", (int)data->param.viewy);
+		// printf("symb - %c\n", data->param.map[(int)(data->param.plx + data->param.viewx * moveSpeed)][(int)data->param.ply]);
+    //   if(data->param.map[(int)(data->param.player_x + data->param.viewx * moveSpeed)][(int)data->param.player_y] == '0')
+	//   	data->param.player_x += data->param.viewx * moveSpeed;
+    //   if(data->param.map[(int)data->param.player_x][(int)(data->param.player_y + data->param.viewy * moveSpeed)] == '0')
+	//   	data->param.player_y += data->param.viewy * moveSpeed;
+		if(data->param.map[(int)data->param.player_y][(int)(data->param.player_x + data->param.viewx * moveSpeed)] == '0')
+	  		data->param.player_x += data->param.viewx * moveSpeed;
+    	if(data->param.map[(int)(data->param.player_y + data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
+	  		data->param.player_y += data->param.viewy * moveSpeed;
     }
     if(data->key.down)		//move backwards if no wall behind you
     {
-      if(data->param.map[(int)(data->param.plx - data->param.viewx * moveSpeed)][(int)data->param.ply] == '0')
-	  	data->param.plx -= data->param.viewx * moveSpeed;
-      if(data->param.map[(int)data->param.plx][(int)(data->param.ply - data->param.viewy * moveSpeed)] == '0')
-	  	data->param.ply -= data->param.viewy * moveSpeed;
+    //   if(data->param.map[(int)(data->param.player_x - data->param.viewx * moveSpeed)][(int)data->param.player_y] == '0')
+	//   	data->param.player_x -= data->param.viewx * moveSpeed;
+    //   if(data->param.map[(int)data->param.player_x][(int)(data->param.player_y - data->param.viewy * moveSpeed)] == '0')
+	//   	data->param.player_y -= data->param.viewy * moveSpeed;
+		if(data->param.map[(int)data->param.player_y][(int)(data->param.player_x - data->param.viewx * moveSpeed)] == '0')
+	  		data->param.player_x -= data->param.viewx * moveSpeed;
+    	if(data->param.map[(int)(data->param.player_y - data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
+	  		data->param.player_y -= data->param.viewy * moveSpeed;
     }
 	// if(data->key.left)
 	// {
@@ -157,22 +169,22 @@ void	draw_texture(t_data *data)
 	// 	if(data->param.map[][] == '0')
 
 	// }
-    if (data->key.camright)		//rotate to the right
+    if (data->key.camleft)		//rotate to the left
     {
       double oldDirX = data->param.viewx;
       data->param.viewx = data->param.viewx * cos(-rotSpeed) - data->param.viewy * sin(-rotSpeed);
       data->param.viewy = oldDirX * sin(-rotSpeed) + data->param.viewy * cos(-rotSpeed);
-      double oldPlaneX = planeX;
-      planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-      planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+      double oldPlaneX = data->param.plane_x;
+      data->param.plane_x = data->param.plane_x * cos(-rotSpeed) - data->param.plane_y * sin(-rotSpeed);
+      data->param.plane_y = oldPlaneX * sin(-rotSpeed) + data->param.plane_y * cos(-rotSpeed);
     }
-    if (data->key.camleft)		//rotate to the left
+    if (data->key.camright)		//rotate to the right
     {
       double oldDirX = data->param.viewx;
       data->param.viewx = data->param.viewx * cos(rotSpeed) - data->param.viewy * sin(rotSpeed);
       data->param.viewy = oldDirX * sin(rotSpeed) + data->param.viewy * cos(rotSpeed);
-      double oldPlaneX = planeX;
-      planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-      planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+      double oldPlaneX = data->param.plane_x;
+      data->param.plane_x = data->param.plane_x * cos(rotSpeed) - data->param.plane_y * sin(rotSpeed);
+      data->param.plane_y = oldPlaneX * sin(rotSpeed) + data->param.plane_y * cos(rotSpeed);
     }
 }

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:39:15 by truby             #+#    #+#             */
-/*   Updated: 2021/03/23 15:59:21 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/24 18:08:12 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	first_check(int argc, char **argv, int *fd, t_param *param)
 {
 	int i;
+	char *buf;
 
 	if (argc > 3)
 		ft_error("Error\nToo much arguments.\n", NULL);
@@ -34,6 +35,9 @@ static void	first_check(int argc, char **argv, int *fd, t_param *param)
 	*fd = open(argv[1], O_RDONLY);
 	if (*fd < 0)
 		ft_error("Error\nCan't open this config.\n", NULL);
+	if (read(*fd, buf, 0) < 0)
+		ft_error("Error\nCan't r this config.\n", NULL);
+
 }
 
 static int	last_check(t_data *data)
@@ -52,10 +56,13 @@ int	main(int argc, char **argv)
 	ft_parser(&data.param, fd, -1);
 	// last_check(&data);
 	data.img.mlx = mlx_init();
-	if (!data.param.screen)
+	data.img.win = mlx_new_window(data.img.mlx, data.param.rx, data.param.ry, "cub3D");
+//	data.img.img = mlx_new_image(data.img.win, data.param.rx, data.param.ry);
+//	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
+//	if (!data.param.screen)
 	{
 		// screensize(&data);
-		data.img.win = mlx_new_window(data.img.mlx, data.param.rx, data.param.ry, "cub3D");
+		// data.img.win = mlx_new_window(data.img.mlx, data.param.rx, data.param.ry, "cub3D");
 	}
 	mlx_hook(data.img.win, 2, 0, &press, &data);
 	mlx_hook(data.img.win, 3, 0, &release, &data);

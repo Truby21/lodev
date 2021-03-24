@@ -51,3 +51,6 @@
 //	printf("%s\n", param->map[i++]);
 //	printf("%s\n", param->map[i++]);
 //	printf("%s\n", param->map[i]);
+
+printf("x = %i\n", (int)data->param.plx);
+		printf("y = %i\n", (int)data->param.ply);
