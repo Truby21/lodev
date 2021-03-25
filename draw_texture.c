@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 16:31:38 by truby             #+#    #+#             */
-/*   Updated: 2021/03/24 23:52:53 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/26 01:33:21 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ void	draw_texture(t_data *data)
     {
 		if(data->param.map[(int)data->param.player_y][(int)(data->param.player_x + data->param.viewx * moveSpeed)] == '0')
 		{
-			printf("x before - %i\n", (int)data->param.player_x);
+			// printf("x before - %i\n", (int)data->param.player_x);
 	  		data->param.player_x += data->param.viewx * moveSpeed;
-			printf("x after - %i\n", (int)data->param.player_x);
+			// printf("x after - %i\n", (int)data->param.player_x);
 		}
     	if(data->param.map[(int)(data->param.player_y + data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
 	  		data->param.player_y += data->param.viewy * moveSpeed;
