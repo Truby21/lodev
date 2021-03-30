@@ -6,30 +6,31 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 21:13:40 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 18:03:13 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/30 19:34:08 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static t_param	*check_and_spl(t_param *param, int gnl)
+static void	check_and_spl(t_param *param, int gnl, char *line)
 {
-	if (gnl == 0 && param->i <= 8)
+	if (gnl == 0 && param->i <= 9)
 		ft_error("Error\nNeed correct config.\n", param);
 	if (gnl == -1)
 		ft_error("Error\nCan't read this config.\n", param);
+	param->mapline = ft_strjoin_cub(param, line, -1, -1);
+	free(line);
 	param->map = ft_split(param->mapline, '\n');
 	if (!param->map)
 		ft_error("Error\nError of malloc.\n", param);
 	free(param->mapline);
 	param->mapline = NULL;
-	return (param);
 }
 
-static t_param	*ft_map(t_param *param, char *line)
+static void	ft_map(t_param *param, char *line)
 {
 	if (param->i == 8 && param->i++)
-		return (param);
+		return ;
 	if (param->i >= 9)
 	{
 		if ((ft_strchr(line, '1') || ft_strchr(line, ' ')) && param->i++)
@@ -40,10 +41,9 @@ static t_param	*ft_map(t_param *param, char *line)
 				ft_error("Error\nInvalid map.\n", param);
 		}
 	}
-	return (param);
 }
 
-static t_param	*ft_search_letter(char *line, t_param *param, int *i)
+static void	ft_search_letter(char *line, t_param *param, int *i)
 {
 	while (line[++(*i)] != '\0' && param->i < 8)
 	{
@@ -63,10 +63,9 @@ static t_param	*ft_search_letter(char *line, t_param *param, int *i)
 			ft_error("Error\nInvalid config.\n", param);
 	}
 	*i = -1;
-	return (param);
 }
 
-int	ft_parser(t_param *param, int fd, int i)
+void	ft_parser(t_param *param, int fd, int i)
 {
 	char				*line;
 	int					gnl;
@@ -80,9 +79,6 @@ int	ft_parser(t_param *param, int fd, int i)
 		free(line);
 		gnl = get_next_line(fd, &line);
 	}
-	param->mapline = ft_strjoin_cub(param, line, -1, -1);
-	free(line);
-	check_and_spl(param, gnl);
+	check_and_spl(param, gnl, line);
 	valid_map(param, -1);
-	return (1);
 }

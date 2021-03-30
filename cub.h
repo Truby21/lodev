@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/03/24 16:52:05 by truby            ###   ########.fr       */
+/*   Updated: 2021/03/30 19:33:56 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char 				*ft_textures(t_param *param, char *line, int ind, int i);
 // int					ft_put_square(t_data *data, int x, int y);
 // int					ft_put_square1(t_data *data, int x, int y);
 // int					ft_put_square_player(t_data *data, int x, int y);
-int 				ft_parser(t_param *param, int fd, int i);
+void 				ft_parser(t_param *param, int fd, int i);
 t_param				*ft_parser_processor(char *line, int i, t_param *param);
 t_param				*ft_res(t_param *param, char *line, int i);
 t_param				*ft_col(t_param *param, char *line, int i);
