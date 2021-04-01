@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/03/30 19:33:56 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/01 19:03:25 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,18 @@ typedef	struct	s_img
     int         endian;
 }				t_img;
 
+typedef struct  s_txtr
+{
+	void        *img;
+    void        *addr;
+    int         bpp;
+	int         len;
+    int         img_w;
+    int         img_h;
+	int			end;
+}				t_txtr;
+
+
 // typedef struct	s_sprite
 // {
 	
@@ -77,6 +89,7 @@ typedef	struct	s_img
 typedef struct  s_data 
 {
 	t_img		img;
+	t_txtr		txtr[5];
 	t_key		key;
 	t_param		param;
 	// t_sprite	sprite;
