@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/04/01 19:03:25 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/02 21:06:01 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,31 @@ typedef struct  s_txtr
 	int			end;
 }				t_txtr;
 
+typedef struct s_lod
+{
+	int			mapx;
+	int			mapy;
+	int			stepx;
+	int			stepy;
+	int			hit;
+	int			side;
+	int			drawstart;
+	int			drawend;
+	double		time;
+	double		oldtime;
+	double		frametime;
+	double		movespeed;
+	double		rotspeed;
+	double		camx;
+	double		raydirx;
+	double		raydiry;
+	double		sidedistx;
+	double		sidedisty;
+	double		deltadistx;
+	double		deltadisty;
+	double		perpwalldist;
+	double		lineheight;
+}				t_lod;
 
 // typedef struct	s_sprite
 // {
@@ -92,6 +117,7 @@ typedef struct  s_data
 	t_txtr		txtr[5];
 	t_key		key;
 	t_param		param;
+	t_lod		ld;
 	// t_sprite	sprite;
 }               t_data;
 
@@ -117,7 +143,7 @@ t_param				*ft_so(t_param *param, char *line, int i);
 t_param				*ft_s(t_param *param, char *line, int i);
 t_param				*ft_ea(t_param *param, char *line, int i);
 t_param				*ft_we(t_param *param, char *line, int i);
-void				ft_mymlx(t_param *param, int i, int j, int x);
+// void				ft_mymlx(t_param *param, int i, int j, int x);
 void				init_struct(t_data *data);
 int					press(int key, t_data *data);
 int					release(int key, t_data *data);
@@ -126,7 +152,7 @@ void				screensize(t_data *data);
 void				save_screen(t_data *data);
 void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void				draw_floor_ceiling(t_data *data, int x, int y);
-void				draw_texture(t_data *data);
+void				draw_texture(t_param *param, t_lod *ld, t_data *data);
 int					ft_exit(int key, t_data *data);
 
 #endif

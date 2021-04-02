@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:51:33 by truby             #+#    #+#             */
-/*   Updated: 2021/04/01 18:59:16 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/02 21:07:03 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int render(t_data *data)
 	// 	save_screen(data); // проверка разрешения перед скриншотом
 	data->img.img = mlx_new_image(data->img.win, data->param.rx, data->param.ry);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
-	draw_floor_ceiling(data, -1, -1);
-	draw_texture(data); // отрисовка стен
+	draw_floor_ceiling(data, 0, 0);
+	draw_texture(&data->param, &data->ld, data); // отрисовка стен
 	// if (data->param.qua_sprite) // проверка на наличие спрайтов
 	// {
 	// 	sort_spr(data); // сортировка срайтов

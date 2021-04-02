@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_texture.c                                     :+:      :+:    :+:   */
+/*   draw_texture->c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
+/*   By: truby <truby@student->42->fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 16:31:38 by truby             #+#    #+#             */
-/*   Updated: 2021/04/01 18:58:21 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/02 20:15:06 by truby            ###   ########->fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,92 +28,85 @@ static double	deltadist(double rayone, double raytwo)
 	}
 }
 
-void	draw_texture(t_data *data)
+void	draw_texture(t_param *param, t_lod *ld, t_data *data)
 {
   	int		y;
   	int		x = -1;
 
-	double time = 10;
-	double oldTime = 0;
-    while (++x < data->param.rx)
+	ld->time = 10;
+	ld->oldtime = 0;
+    while (++x < param->rx)
     {
-      	double cameraX = 2 * x / (double)data->param.rx - 1;
-      	double rayDirX = data->param.viewx + data->param.plane_x * cameraX;
-      	double rayDirY = data->param.viewy + data->param.plane_y * cameraX;
-      	int mapX = data->param.player_x;
-      	int mapY = data->param.player_y;
-      	double sideDistX;
-      	double sideDistY;
-		// double deltaDistX = (rayDirY == 0) ? 0 : ((rayDirX == 0) ? 1 : fabs(1 / rayDirX));
-    	// double deltaDistY = (rayDirX == 0) ? 0 : ((rayDirY == 0) ? 1 : fabs(1 / rayDirY));
-		double deltaDistX = deltadist(rayDirY, rayDirX);
-    	double deltaDistY = deltadist(rayDirX, rayDirY);
-      	double perpWallDist;
-      	int stepX;
-      	int stepY;
-      	int hit = 0;
-      	int side;
-      	if(rayDirX < 0)
+      	ld->camx = 2 * x / (double)param->rx - 1;
+      	ld->raydirx = param->viewx + param->plane_x * ld->camx;
+      	ld->raydiry = param->viewy + param->plane_y * ld->camx;
+      	ld->mapx = param->player_x;
+      	ld->mapy = param->player_y;
+		ld->deltadistx = deltadist(ld->raydiry, ld->raydirx);
+    	ld->deltadisty = deltadist(ld->raydirx, ld->raydiry);
+      	ld->hit = 0;
+      	if(ld->raydirx < 0)
       	{
-        	stepX = -1;
-        	sideDistX = (data->param.player_x - mapX) * deltaDistX;
+        	ld->stepx = -1;
+        	ld->sidedistx = (param->player_x - ld->mapx) * ld->deltadistx;
       	}
       	else
       	{
-        	stepX = 1;
-        	sideDistX = (mapX + 1.0 - data->param.player_x) * deltaDistX;
+        	ld->stepx = 1;
+        	ld->sidedistx = (ld->mapx + 1.0 - param->player_x) * ld->deltadistx;
       	}
-      	if(rayDirY < 0)
+      	if(ld->raydiry < 0)
       	{
-        	stepY = -1;
-        	sideDistY = (data->param.player_y - mapY) * deltaDistY;
+        	ld->stepy = -1;
+        	ld->sidedisty = (param->player_y - ld->mapy) * ld->deltadisty;
       	}
       	else
       	{
-        	stepY = 1;
-        	sideDistY = (mapY + 1.0 - data->param.player_y) * deltaDistY;
+        	ld->stepy = 1;
+        	ld->sidedisty = (ld->mapy + 1.0 - param->player_y) * ld->deltadisty;
       	}
-      	while (hit == 0)
+      	while (ld->hit == 0)
       	{
-        	if (sideDistX < sideDistY)
+        	if (ld->sidedistx < ld->sidedisty)
         	{
-        		sideDistX += deltaDistX;
-        		mapX += stepX;
-        		side = 0;
+        		ld->sidedistx += ld->deltadistx;
+        		ld->mapx += ld->stepx;
+        		ld->side = 0;
         	}
         	else
         	{
-        		sideDistY += deltaDistY;
-        		mapY += stepY;
-        		side = 1;
+        		ld->sidedisty += ld->deltadisty;
+        		ld->mapy += ld->stepy;
+        		ld->side = 1;
         	}
-        	if (data->param.map[mapY][mapX] == '1')
-				hit = 1;
+        	if (param->map[ld->mapy][ld->mapx] == '1'
+				|| param->map[ld->mapy][ld->mapx] == '2')
+				ld->hit = 1;
       	}
-      	if (side == 0)
-			perpWallDist = (mapX - data->param.player_x + (1 - stepX) / 2) / rayDirX;
+      	if (ld->side == 0)
+			ld->perpwalldist = (ld->mapx - param->player_x + (1 - ld->stepx) / 2) / ld->raydirx;
       	else
-	  		perpWallDist = (mapY - data->param.player_y + (1 - stepY) / 2) / rayDirY;
-      	double lineHeight = (int)(data->param.ry / perpWallDist);
-      	int drawStart = -lineHeight / 2 + data->param.ry / 2;
-      	if (drawStart < 0)
-	  		drawStart = 0;
-      	int drawEnd = lineHeight / 2 + data->param.ry / 2;
-      	if (drawEnd >= data->param.ry)
-	  		drawEnd = data->param.ry;
+	  		ld->perpwalldist = (ld->mapy - param->player_y + (1 - ld->stepy) / 2) / ld->raydiry;
+      	ld->lineheight = (int)(param->ry / ld->perpwalldist);
+      	ld->drawstart = -ld->lineheight / 2 + param->ry / 2;
+      	if (ld->drawstart < 0)
+	  		ld->drawstart = 0;
+      	ld->drawend = ld->lineheight / 2 + param->ry / 2;
+      	if (ld->drawend >= param->ry)
+	  		ld->drawend = param->ry;
 	// 	double wallX;
 	// 	if (side == 0)
-	// 		wallX = data->param.player_y + perpWallDist * rayDirY;
+	// 		wallX = param->player_y + perpWallDist * rayDirY;
     //   	else
-	// 		wallX = data->param.player_x + perpWallDist * rayDirX;
+	// 		wallX = param->player_x + perpWallDist * rayDirX;
     //   	wallX -= floor(wallX);
 	// 	int texX = (int)(wallX * (double)texWidth);
     //   	if (side == 0 && rayDirX > 0)
 	// 		texX = texWidth - texX - 1;
     //   	if (side == 1 && rayDirY < 0)
 	// 		texX = texWidth - texX - 1;
-    // 	double step = 1.0 * texHeight / lineHeight;
-    // 	double texPos = (drawStart - data->param.ry / 2 + lineHeight / 2) * step;
+    // 	double step = 1->0 * texHeight / lineHeight;
+    // 	double texPos = (drawStart - param->ry / 2 + lineHeight / 2) * step;
 	// 	y = drawStart - 1;
 	// 	while (++y < drawEnd)
     //   	{
@@ -127,60 +120,68 @@ void	draw_texture(t_data *data)
     //     	// buffer[y][x] = color;
     //   	}
     // }
-		y = drawStart - 1;
-		while (++y < drawEnd)
+		y = ld->drawstart - 1;
+		while (++y < ld->drawend)
 			my_mlx_pixel_put(data, x, y, 0xF000FF);
 	}
     //timing for input and FPS counter
     // oldTime = time;
     // time = getTicks();
-    double frameTime = (time - oldTime) / 1000.0;
-    double moveSpeed = frameTime * 5.0;
-    double rotSpeed = frameTime * 3.0;
+    ld->frametime = (ld->time - ld->oldtime) / 1000.0;
+    ld->movespeed = ld->frametime * 5.0;
+    ld->rotspeed = ld->frametime * 3.0;
     if (data->key.up)
     {
-		if (data->param.map[(int)data->param.player_y][(int)(data->param.player_x + data->param.viewx * moveSpeed)] == '0')
-	  		data->param.player_x += data->param.viewx * moveSpeed;
-    	if (data->param.map[(int)(data->param.player_y + data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
-	  		data->param.player_y += data->param.viewy * moveSpeed;
+		if (param->map[(int)param->player_y][(int)(param->player_x + param->viewx * ld->movespeed)] != '1'
+			&& param->map[(int)param->player_y][(int)(param->player_x + param->viewx * ld->movespeed)] != '2')
+	  		param->player_x += param->viewx * ld->movespeed;
+    	if (param->map[(int)(param->player_y + param->viewy * ld->movespeed)][(int)param->player_x] != '1'
+			&& param->map[(int)(param->player_y + param->viewy * ld->movespeed)][(int)param->player_x] != '2')
+	  		param->player_y += param->viewy * ld->movespeed;
     }
     if (data->key.down)
     {
-		if (data->param.map[(int)data->param.player_y][(int)(data->param.player_x - data->param.viewx * moveSpeed)] == '0')
-	  		data->param.player_x -= data->param.viewx * moveSpeed;
-    	if (data->param.map[(int)(data->param.player_y - data->param.viewy * moveSpeed)][(int)data->param.player_x] == '0')
-	  		data->param.player_y -= data->param.viewy * moveSpeed;
+		if (param->map[(int)param->player_y][(int)(param->player_x - param->viewx * ld->movespeed)] != '1'
+			&& param->map[(int)param->player_y][(int)(param->player_x - param->viewx * ld->movespeed)] != '2')
+	  		param->player_x -= param->viewx * ld->movespeed;
+    	if (param->map[(int)(param->player_y - param->viewy * ld->movespeed)][(int)param->player_x] != '1'
+			&& param->map[(int)(param->player_y - param->viewy * ld->movespeed)][(int)param->player_x] != '2')
+	  		param->player_y -= param->viewy * ld->movespeed;
     }
 	if (data->key.right)
 	{
-		if (data->param.map[(int)(data->param.player_y + data->param.viewx * moveSpeed)][(int)data->param.player_x] == '0')
-			data->param.player_y += data->param.viewx * moveSpeed;
-		if (data->param.map[(int)data->param.player_y][(int)(data->param.player_x - data->param.viewy * moveSpeed)] == '0')
-	  		data->param.player_x -= data->param.viewy * moveSpeed;
+		if (param->map[(int)(param->player_y + param->viewx * ld->movespeed)][(int)param->player_x] != '1'
+			&& param->map[(int)(param->player_y + param->viewx * ld->movespeed)][(int)param->player_x] != '2')
+			param->player_y += param->viewx * ld->movespeed;
+		if (param->map[(int)param->player_y][(int)(param->player_x - param->viewy * ld->movespeed)] != '1'
+			&& param->map[(int)param->player_y][(int)(param->player_x - param->viewy * ld->movespeed)] != '2')
+	  		param->player_x -= param->viewy * ld->movespeed;
 	}
 	if (data->key.left)
 	{
-		if (data->param.map[(int)(data->param.player_y - data->param.viewx * moveSpeed)][(int)data->param.player_x] == '0')
-	  		data->param.player_y -= data->param.viewx * moveSpeed;
-    	if (data->param.map[(int)data->param.player_y][(int)(data->param.player_x + data->param.viewy * moveSpeed)] == '0')
-	  		data->param.player_x += data->param.viewy * moveSpeed;
+		if (param->map[(int)(param->player_y - param->viewx * ld->movespeed)][(int)param->player_x] != '1'
+			&& param->map[(int)(param->player_y - param->viewx * ld->movespeed)][(int)param->player_x] != '2')
+	  		param->player_y -= param->viewx * ld->movespeed;
+    	if (param->map[(int)param->player_y][(int)(param->player_x + param->viewy * ld->movespeed)] != '1'
+			&& param->map[(int)param->player_y][(int)(param->player_x + param->viewy * ld->movespeed)] != '2')
+	  		param->player_x += param->viewy * ld->movespeed;
 	}
     if (data->key.camleft)
     {
-      double oldDirX = data->param.viewx;
-      data->param.viewx = data->param.viewx * cos(-rotSpeed) - data->param.viewy * sin(-rotSpeed);
-      data->param.viewy = oldDirX * sin(-rotSpeed) + data->param.viewy * cos(-rotSpeed);
-      double oldPlaneX = data->param.plane_x;
-      data->param.plane_x = data->param.plane_x * cos(-rotSpeed) - data->param.plane_y * sin(-rotSpeed);
-      data->param.plane_y = oldPlaneX * sin(-rotSpeed) + data->param.plane_y * cos(-rotSpeed);
+      double oldDirX = param->viewx;
+      param->viewx = param->viewx * cos(-ld->rotspeed) - param->viewy * sin(-ld->rotspeed);
+      param->viewy = oldDirX * sin(-ld->rotspeed) + param->viewy * cos(-ld->rotspeed);
+      double oldPlaneX = param->plane_x;
+      param->plane_x = param->plane_x * cos(-ld->rotspeed) - param->plane_y * sin(-ld->rotspeed);
+      param->plane_y = oldPlaneX * sin(-ld->rotspeed) + param->plane_y * cos(-ld->rotspeed);
     }
     if (data->key.camright)
     {
-      double oldDirX = data->param.viewx;
-      data->param.viewx = data->param.viewx * cos(rotSpeed) - data->param.viewy * sin(rotSpeed);
-      data->param.viewy = oldDirX * sin(rotSpeed) + data->param.viewy * cos(rotSpeed);
-      double oldPlaneX = data->param.plane_x;
-      data->param.plane_x = data->param.plane_x * cos(rotSpeed) - data->param.plane_y * sin(rotSpeed);
-      data->param.plane_y = oldPlaneX * sin(rotSpeed) + data->param.plane_y * cos(rotSpeed);
+      double oldDirX = param->viewx;
+      param->viewx = param->viewx * cos(ld->rotspeed) - param->viewy * sin(ld->rotspeed);
+      param->viewy = oldDirX * sin(ld->rotspeed) + param->viewy * cos(ld->rotspeed);
+      double oldPlaneX = param->plane_x;
+      param->plane_x = param->plane_x * cos(ld->rotspeed) - param->plane_y * sin(ld->rotspeed);
+      param->plane_y = oldPlaneX * sin(ld->rotspeed) + param->plane_y * cos(ld->rotspeed);
     }
 }
