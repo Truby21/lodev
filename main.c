@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:39:15 by truby             #+#    #+#             */
-/*   Updated: 2021/04/02 17:07:14 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/04 22:25:06 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,26 @@ static void	first_check(int argc, char **argv, int *fd, t_param *param)
 
 static void	img_textures(t_data *dt)
 {
-	// dt->txtr[0].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.sp, &dt->txtr[0].img_w, &dt->txtr[0].img_h);
-	// dt->txtr[0].addr = mlx_get_data_addr(dt->txtr[0].img, &dt->txtr[0].bpp, &dt->txtr[0].len, &dt->txtr[0].end);
-	dt->txtr[1].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.no, &dt->txtr[1].img_w, &dt->txtr[1].img_h);
-	dt->txtr[1].addr = mlx_get_data_addr(dt->txtr[1].img, &dt->txtr[1].bpp, &dt->txtr[1].len, &dt->txtr[1].end);
-	dt->txtr[2].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.so, &dt->txtr[2].img_w, &dt->txtr[2].img_h);
-	dt->txtr[2].addr = mlx_get_data_addr(dt->txtr[2].img, &dt->txtr[2].bpp, &dt->txtr[2].len, &dt->txtr[2].end);
-	dt->txtr[3].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.we, &dt->txtr[3].img_w, &dt->txtr[3].img_h);
-	dt->txtr[3].addr = mlx_get_data_addr(dt->txtr[3].img, &dt->txtr[3].bpp, &dt->txtr[3].len, &dt->txtr[3].end);
-	dt->txtr[4].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.ea, &dt->txtr[4].img_w, &dt->txtr[4].img_h);
-	dt->txtr[4].addr = mlx_get_data_addr(dt->txtr[4].img, &dt->txtr[4].bpp, &dt->txtr[4].len, &dt->txtr[4].end);
+	dt->sprite.img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.sp,
+		&dt->sprite.img_w, &dt->sprite.img_h);
+	dt->sprite.addr = mlx_get_data_addr(dt->sprite.img, &dt->sprite.bpp,
+		&dt->sprite.len, &dt->sprite.end);
+	dt->txtr[0].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.no,
+		&dt->txtr[0].img_w, &dt->txtr[0].img_h);
+	dt->txtr[0].addr = mlx_get_data_addr(dt->txtr[0].img, &dt->txtr[0].bpp,
+		&dt->txtr[0].len, &dt->txtr[0].end);
+	dt->txtr[1].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.so,
+		&dt->txtr[1].img_w, &dt->txtr[1].img_h);
+	dt->txtr[1].addr = mlx_get_data_addr(dt->txtr[1].img, &dt->txtr[1].bpp,
+		&dt->txtr[1].len, &dt->txtr[1].end);
+	dt->txtr[2].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.we,
+		&dt->txtr[2].img_w, &dt->txtr[2].img_h);
+	dt->txtr[2].addr = mlx_get_data_addr(dt->txtr[2].img, &dt->txtr[2].bpp,
+		&dt->txtr[2].len, &dt->txtr[2].end);
+	dt->txtr[3].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.ea,
+		&dt->txtr[3].img_w, &dt->txtr[3].img_h);
+	dt->txtr[3].addr = mlx_get_data_addr(dt->txtr[3].img, &dt->txtr[3].bpp,
+		&dt->txtr[3].len, &dt->txtr[3].end);
 }
 
 int	main(int argc, char **argv)

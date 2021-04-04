@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rnd_funcs.c                                        :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 23:06:45 by truby             #+#    #+#             */
-/*   Updated: 2021/04/01 21:16:04 by truby            ###   ########.fr       */
+/*   Created: 2021/04/04 20:39:43 by truby             #+#    #+#             */
+/*   Updated: 2021/04/04 20:44:52 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@
 // {
 // }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	draw_sprite(t_data *dt)
+{
+
+}
+
+void	pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -31,18 +36,24 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	}
 }
 
+unsigned int    *pixel_take(t_txtr *txtr, int texy, int texx)
+{
+   return ((unsigned int *)(txtr->addr + txtr->len * texy
+   + texx * (txtr->bpp / 8)));
+}
+
 void	draw_floor_ceiling(t_data *data, int x, int y)
 {
 	while (++y <= (data->param.ry - 2) / 2)
 	{
 		while (++x != data->param.rx)
-			my_mlx_pixel_put(data, x, y, data->param.c_color);
+			pixel_put(data, x, y, data->param.c_color);
 		x = 0;
 	}
 	while (y <= data->param.ry - 2)
 	{
 		while (++x != data->param.rx)
-			my_mlx_pixel_put(data, x, y, data->param.f_color);
+			pixel_put(data, x, y, data->param.f_color);
 		x = 0;
 		y++;
 	}

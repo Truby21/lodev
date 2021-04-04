@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:57:42 by truby             #+#    #+#             */
-/*   Updated: 2021/04/02 21:56:23 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/04 19:19:33 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,25 @@
 static void	view(t_param *param, int i, int j)
 {
 	if (param->map[i][j] == 'N')
+	{
+		param->plane_x = 0.66;
 		param->viewy = -1;
+	}
 	if (param->map[i][j] == 'S')
+	{
+		param->plane_x = -0.66;
 		param->viewy = 1;
-	if (param->map[i][j] == 'W')
-		param->viewx = -1;
+	}
 	if (param->map[i][j] == 'E')
+	{
+		param->plane_y = 0.66;
 		param->viewx = 1;
+	}
+	if (param->map[i][j] == 'W')
+	{
+		param->plane_y = -0.66;
+		param->viewx = -1;
+	}
 }
 
 static t_param	*ft_check_space(t_param *param, int i, int j)

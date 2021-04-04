@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/04/02 21:06:01 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/04 22:31:04 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,18 @@ typedef	struct	s_img
     int         endian;
 }				t_img;
 
+typedef	struct	s_spr
+{
+	void		*img;
+	void		*addr;
+	int			bpp;
+	int			len;
+	int         img_w;
+    int         img_h;
+	int			end;
+	double		buffer[]
+}				t_spr;
+
 typedef struct  s_txtr
 {
 	void        *img;
@@ -90,6 +102,8 @@ typedef struct s_lod
 	int			side;
 	int			drawstart;
 	int			drawend;
+	int			texx;
+	int			texy;
 	double		time;
 	double		oldtime;
 	double		frametime;
@@ -104,6 +118,10 @@ typedef struct s_lod
 	double		deltadisty;
 	double		perpwalldist;
 	double		lineheight;
+	double		wallx;
+	double		step;
+	double		texpos;
+
 }				t_lod;
 
 // typedef struct	s_sprite
@@ -118,7 +136,7 @@ typedef struct  s_data
 	t_key		key;
 	t_param		param;
 	t_lod		ld;
-	// t_sprite	sprite;
+	t_spr		sprite;
 }               t_data;
 
 
@@ -150,9 +168,11 @@ int					release(int key, t_data *data);
 int					render(t_data *data);
 void				screensize(t_data *data);
 void				save_screen(t_data *data);
-void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void				pixel_put(t_data *data, int x, int y, int color);
+unsigned int    	*pixel_take(t_txtr *txtr, int texty, int textx);
 void				draw_floor_ceiling(t_data *data, int x, int y);
 void				draw_texture(t_param *param, t_lod *ld, t_data *data);
 int					ft_exit(int key, t_data *data);
+void				draw_sprite(t_data *dt);
 
 #endif
