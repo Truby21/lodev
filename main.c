@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:39:15 by truby             #+#    #+#             */
-/*   Updated: 2021/04/04 22:25:06 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/06 00:03:41 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,31 @@ static void	first_check(int argc, char **argv, int *fd, t_param *param)
 
 }
 
+static void	sprite_textures(t_data *data)
+{
+	int		k = -1;
+	int		l = -1;
+	int		sp = -1;
+
+	data->spr = malloc(sizeof(t_spr) * (data->param.qua_sprite));
+	if (data->spr == NULL)
+		ft_error("Error\nError of malloc.", &data->param);
+	while (data->param.map[++k] != NULL)
+	{
+		while (data->param.map[k][++l] != '\0')
+		{
+			if (data->param.map[k][l] == '2')
+			{
+				data->spr[++sp].y = k + 0.1;
+				data->spr[sp].x = l + 0.1;
+			}
+		}
+		l = -1;
+	}
+}
+
 static void	img_textures(t_data *dt)
 {
-	dt->sprite.img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.sp,
-		&dt->sprite.img_w, &dt->sprite.img_h);
-	dt->sprite.addr = mlx_get_data_addr(dt->sprite.img, &dt->sprite.bpp,
-		&dt->sprite.len, &dt->sprite.end);
 	dt->txtr[0].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.no,
 		&dt->txtr[0].img_w, &dt->txtr[0].img_h);
 	dt->txtr[0].addr = mlx_get_data_addr(dt->txtr[0].img, &dt->txtr[0].bpp,
@@ -62,6 +81,10 @@ static void	img_textures(t_data *dt)
 		&dt->txtr[3].img_w, &dt->txtr[3].img_h);
 	dt->txtr[3].addr = mlx_get_data_addr(dt->txtr[3].img, &dt->txtr[3].bpp,
 		&dt->txtr[3].len, &dt->txtr[3].end);
+	dt->txtr[4].img = mlx_xpm_file_to_image(dt->img.mlx, dt->param.sp,
+		&dt->txtr[4].img_w, &dt->txtr[4].img_h);
+	dt->txtr[4].addr = mlx_get_data_addr(dt->txtr[4].img, &dt->txtr[4].bpp,
+		&dt->txtr[4].len, &dt->txtr[4].end);
 }
 
 int	main(int argc, char **argv)
@@ -74,6 +97,8 @@ int	main(int argc, char **argv)
 	init_struct(&data);
 	first_check(argc, argv, &fd, &data.param);
 	ft_parser(&data.param, fd, -1);
+	if (data.param.qua_sprite)
+		sprite_textures(&data);
 	data.img.mlx = mlx_init();
 	data.img.win = mlx_new_window(data.img.mlx, data.param.rx, data.param.ry, "cub3D");
 	img_textures(&data);

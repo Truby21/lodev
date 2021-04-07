@@ -28,26 +28,32 @@ static double	deltadist(double rayone, double raytwo)
 	}
 }
 
-static void sortsprites(int* order, double* dist, int amount)
+static void sortsprites(t_data *data, int i, int j)
 {
-  std::vector<std::pair<double, int>> sprites(amount);
-  for(int i = 0; i < amount; i++) {
-    sprites[i].first = dist[i];
-    sprites[i].second = order[i];
-  }
-  std::sort(sprites.begin(), sprites.end());
-  // restore in reverse order to go from farthest to nearest
-  for(int i = 0; i < amount; i++) {
-    dist[i] = sprites[amount - i - 1].first;
-    order[i] = sprites[amount - i - 1].second;
-  }
+	t_spr	c;
+
+	while (++i < data->param.qua_sprite)
+	{
+		while (++j < data->param.qua_sprite - 1)
+		{
+			if (data->spr[j].distance < data->spr[j + 1].distance)
+			{
+				c = data->spr[j];
+				data->spr[j] = data->spr[j + 1];
+				data->spr[j + 1] = c;
+			}
+		}
+		j = -1;
+	}
 }
 
 void	draw_texture(t_param *param, t_lod *ld, t_data *data)
 {
   	int		y;
   	int		x = -1;
-	double 	ZBuffer[data->param.rx];
+	double 	zbuffer[data->param.rx];
+	int		sprite_order[param->qua_sprite];
+	double	sprite_distance[param->qua_sprite];
 
 	ld->time = 15;
 	ld->oldtime = 0;
@@ -61,7 +67,7 @@ void	draw_texture(t_param *param, t_lod *ld, t_data *data)
 		ld->deltadistx = deltadist(ld->raydiry, ld->raydirx);
     	ld->deltadisty = deltadist(ld->raydirx, ld->raydiry);
       	ld->hit = 0;
-      	if(ld->raydirx < 0)
+      	if (ld->raydirx < 0)
       	{
         	ld->stepx = -1;
         	ld->sidedistx = (param->player_x - ld->mapx) * ld->deltadistx;
@@ -95,8 +101,7 @@ void	draw_texture(t_param *param, t_lod *ld, t_data *data)
         		ld->mapy += ld->stepy;
         		ld->side = 1;
         	}
-        	if (param->map[ld->mapy][ld->mapx] == '1'
-				|| param->map[ld->mapy][ld->mapx] == '2')
+        	if (param->map[ld->mapy][ld->mapx] == '1')
 				ld->hit = 1;
       	}
       	if (ld->side == 0)
@@ -115,97 +120,110 @@ void	draw_texture(t_param *param, t_lod *ld, t_data *data)
     	else
 			ld->wallx = param->player_x + ld->perpwalldist * ld->raydirx;
     	ld->wallx -= floor(ld->wallx);
-		ld->texx = (int)(ld->wallx * (double)texWidth);
+		ld->texx = (int)(ld->wallx * (double)data->txtr[1].img_w);											//data->txtr[1].img_w было defin-oм
       	if (ld->side == 0 && ld->raydirx > 0)
-			ld->texx = texWidth - ld->texx - 1;
+			ld->texx = data->txtr[1].img_w - ld->texx - 1;
       	if (ld->side == 1 && ld->raydiry < 0)
-			ld->texx = texWidth - ld->texx - 1;
-    	ld->step = 1.0 * texHeight / ld->lineheight;
+			ld->texx = data->txtr[1].img_w - ld->texx - 1;
+    	ld->step = 1.0 * data->txtr[1].img_h / ld->lineheight;
     	ld->texpos = (ld->drawstart - param->ry / 2 + ld->lineheight / 2) * ld->step;
 		y = ld->drawstart - 1;
 		while (++y < ld->drawend)
 		{
 			if (ld->side == 0 && ld->stepx > 0)
-				data->txtr[4] = data->txtr[3];
+				data->txtr[5] = data->txtr[3];
 			else if (ld->side == 0 && ld->stepx < 0)
-				data->txtr[4] = data->txtr[2];
+				data->txtr[5] = data->txtr[2];
 			else if (ld->side == 1 && ld->stepy < 0)
-				data->txtr[4] = data->txtr[0];
+				data->txtr[5] = data->txtr[0];
 			else if (ld->side == 1 && ld->stepy > 0)
-				data->txtr[4] = data->txtr[1];
-			ld->texy = (int)ld->texpos & (texHeight - 1);
+				data->txtr[5] = data->txtr[1];
+			ld->texy = (int)ld->texpos & (data->txtr[5].img_h - 1);
         	ld->texpos += ld->step;
-			unsigned int *color = pixel_take(&data->txtr[4], ld->texy, ld->texx);
+			unsigned int *color = pixel_take(&data->txtr[5], ld->texy, ld->texx);
 			pixel_put(data, x, y, (int)*color);
 		}
+		zbuffer[x] = ld->perpwalldist;
 	}
 	//  S  P  R  I  T  E  S
 	//sort sprites from far to close
-    for(int i = 0; i < numSprites; i++)
+	int i = -1;
+    while (++i < param->qua_sprite)
     {
-      spriteOrder[i] = i;
-      spriteDistance[i] = ((data->param.player_x - sprite[i].x) * (data->param.player_x - sprite[i].x) + (data->param.player_y - sprite[i].y) * (data->param.player_y - sprite[i].y)); //sqrt not taken, unneeded
+    //   sprite_order[i] = i;
+      	data->spr[i].distance = ((data->param.player_x - data->spr[i].x) * (data->param.player_x - data->spr[i].x) + (data->param.player_y - data->spr[i].y) * (data->param.player_y - data->spr[i].y));
     }
-    sortsprites(spriteOrder, spriteDistance, numSprites);
+    sortsprites(data, -1, -1);
 
     //after sorting the sprites, do the projection and draw them
-    for(int i = 0; i < numSprites; i++)
+	i = -1;
+    while (++i < param->qua_sprite)
     {
       //translate sprite position to relative to camera
-      double spriteX = sprite[spriteOrder[i]].x - data->param.player_x;
-      double spriteY = sprite[spriteOrder[i]].y - data->param.player_y;
+      double spriteX = data->spr[i].x - data->param.player_x;
+      double spriteY = data->spr[i].y - data->param.player_y;
 
       //transform sprite with the inverse camera matrix
       // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
       // [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
       // [ planeY   dirY ]                                          [ -planeY  planeX ]
 
-      double invDet = 1.0 / (planeX * dirY - dirX * planeY); //required for correct matrix multiplication
+      double invDet = 1.0 / (param->plane_x * param->viewy - param->viewx * param->plane_y); //required for correct matrix multiplication
 
-      double transformX = invDet * (dirY * spriteX - dirX * spriteY);
-      double transformY = invDet * (-planeY * spriteX + planeX * spriteY); //this is actually the depth inside the screen, that what Z is in 3D, the distance of sprite to player, matching sqrt(spriteDistance[i])
+      double transformX = invDet * (param->viewy * spriteX - param->viewx * spriteY);
+      double transformY = invDet * (-param->plane_y * spriteX + param->plane_x * spriteY); //this is actually the depth inside the screen, that what Z is in 3D, the distance of sprite to player, matching sqrt(spriteDistance[i])
 
-      int spriteScreenX = int((w / 2) * (1 + transformX / transformY));
+      int spriteScreenX = (int)((param->rx / 2) * (1 + transformX / transformY));
 
       //parameters for scaling and moving the sprites
       #define uDiv 1
       #define vDiv 1
       #define vMove 0.0
-      int vMoveScreen = int(vMove / transformY);
+      int vMoveScreen = (int)(vMove / transformY);
 
       //calculate height of the sprite on screen
-      int spriteHeight = abs(int(h / (transformY))) / vDiv; //using "transformY" instead of the real distance prevents fisheye
+      int spriteHeight = abs((int)(param->ry / (transformY))) / vDiv; //using "transformY" instead of the real distance prevents fisheye
       //calculate lowest and highest pixel to fill in current stripe
-      int drawStartY = -spriteHeight / 2 + h / 2 + vMoveScreen;
-      if(drawStartY < 0) drawStartY = 0;
-      int drawEndY = spriteHeight / 2 + h / 2 + vMoveScreen;
-      if(drawEndY >= h) drawEndY = h - 1;
+      int drawStartY = -spriteHeight / 2 + param->ry / 2 + vMoveScreen;
+      if (drawStartY < 0)
+	  	drawStartY = 0;
+      int drawEndY = spriteHeight / 2 + param->ry / 2 + vMoveScreen;
+      if (drawEndY >= param->ry)
+	  	drawEndY = param->ry - 1;
 
       //calculate width of the sprite
-      int spriteWidth = abs( int (h / (transformY))) / uDiv;
+      int spriteWidth = abs((int)(param->ry / (transformY))) / uDiv;
       int drawStartX = -spriteWidth / 2 + spriteScreenX;
-      if(drawStartX < 0) drawStartX = 0;
+      if (drawStartX < 0)
+	  	drawStartX = 0;
       int drawEndX = spriteWidth / 2 + spriteScreenX;
-      if(drawEndX >= w) drawEndX = w - 1;
-
+      if (drawEndX >= param->rx)
+	  	drawEndX = param->rx - 1;
       //loop through every vertical stripe of the sprite on screen
-      for(int stripe = drawStartX; stripe < drawEndX; stripe++)
+	  int stripe = drawStartX - 1;
+      while (++stripe < drawEndX)
       {
-        int texX = int(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texWidth / spriteWidth) / 256;
+        int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * texWidth / spriteWidth) / 256;
         //the conditions in the if are:
         //1) it's in front of camera plane so you don't see things behind you
         //2) it's on the screen (left)
         //3) it's on the screen (right)
         //4) ZBuffer, with perpendicular distance
-        if(transformY > 0 && stripe > 0 && stripe < w && transformY < ZBuffer[stripe])
-        for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
-        {
-          int d = (y-vMoveScreen) * 256 - h * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-          int texY = ((d * texHeight) / spriteHeight) / 256;
-          Uint32 color = texture[sprite[spriteOrder[i]].texture][texWidth * texY + texX]; //get current color from the texture
-          if((color & 0x00FFFFFF) != 0) buffer[y][stripe] = color; //paint pixel if it isn't black, black is the invisible color
+        if (transformY > 0 && stripe > 0 && stripe < param->rx && transformY < zbuffer[stripe])
+		{
+			int y = drawStartY - 1;
+        	while (++y < drawEndY) //for every pixel of the current stripe
+        	{
+          		int d = (y-vMoveScreen) * 256 - param->ry * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+          		int texY = ((d * data->txtr[4].img_h) / spriteHeight) / 256;
+				unsigned int *color = pixel_take(&data->txtr[4], texY, texX);
+				pixel_put(data, x, y, (int)*color);
+			}
+        //   Uint32 color = texture[sprite[spriteOrder[i]].texture][texWidth * texY + texX]; //get current color from the texture
+        //   if((color & 0x00FFFFFF) != 0)
+		//   	buffer[y][stripe] = color; //paint pixel if it isn't black, black is the invisible color
         }
-      }
+      }	
     }
     ld->frametime = (ld->time - ld->oldtime) / 1000.0;
     ld->movespeed = ld->frametime * 5.0;

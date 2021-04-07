@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 20:54:01 by truby             #+#    #+#             */
-/*   Updated: 2021/04/04 22:31:04 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/05 19:13:35 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,9 @@ typedef	struct	s_img
 
 typedef	struct	s_spr
 {
-	void		*img;
-	void		*addr;
-	int			bpp;
-	int			len;
-	int         img_w;
-    int         img_h;
-	int			end;
-	double		buffer[]
+	double		x;
+	double		y;
+	double		distance;
 }				t_spr;
 
 typedef struct  s_txtr
@@ -124,19 +119,14 @@ typedef struct s_lod
 
 }				t_lod;
 
-// typedef struct	s_sprite
-// {
-	
-// }				t_sprite;
-
 typedef struct  s_data 
 {
 	t_img		img;
-	t_txtr		txtr[5];
+	t_txtr		txtr[6];
 	t_key		key;
 	t_param		param;
 	t_lod		ld;
-	t_spr		sprite;
+	t_spr		*spr;
 }               t_data;
 
 
