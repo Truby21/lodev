@@ -6,50 +6,53 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:47:23 by truby             #+#    #+#             */
-/*   Updated: 2021/03/23 21:12:44 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/10 01:40:28 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int press(int key, t_data *data)
+int	press(int key, t_data *data)
 {
 	if (key == 0)
-		data->key.left = 1;
+		ke.left = 1;
 	if (key == 1)
-		data->key.down = 1;
+		ke.down = 1;
 	if (key == 2)
-		data->key.right = 1;
+		ke.right = 1;
 	if (key == 13)
-		data->key.up = 1;
+		ke.up = 1;
 	if (key == 124)
-		data->key.camright = 1;
+		ke.camright = 1;
 	if (key == 123)
-		data->key.camleft = 1;
+		ke.camleft = 1;
 	if (key == 53)
-		ft_error(NULL, &data->param);	
-	return(0);
+	{
+		ft_error(NULL, &prm);
+		exit (0);
+	}
+	return (0);
 }
 
-int release(int key, t_data *data)
+int	release(int key, t_data *data)
 {
 	if (key == 0)
-		data->key.left = 0;
+		ke.left = 0;
 	if (key == 1)
-		data->key.down = 0;
+		ke.down = 0;
 	if (key == 2)
-		data->key.right = 0;
+		ke.right = 0;
 	if (key == 13)
-		data->key.up = 0;
+		ke.up = 0;
 	if (key == 124)
-		data->key.camright = 0;
+		ke.camright = 0;
 	if (key == 123)
-		data->key.camleft = 0;
-	return(0);
+		ke.camleft = 0;
+	return (0);
 }
 
 int	ft_exit(int key, t_data *data)
 {
-	ft_error(NULL, &data->param);
-	return (0);
+	ft_error(NULL, &prm);
+	exit(0);
 }

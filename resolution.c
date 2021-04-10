@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 01:10:02 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 18:15:55 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/10 18:18:37 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_number(char *line, int *i, int *r)
 	while (ft_isdigit(line[*i]))
 	{
 		*r = *r * 10 + (line[(*i)++] - '0');
-		if (*r > 214748364)
+		if (*r > 21474836)
 		{
 			*r = 2147483647;
 			while (ft_isdigit(line[*i]))

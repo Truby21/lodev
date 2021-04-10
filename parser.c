@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 21:13:40 by truby             #+#    #+#             */
-/*   Updated: 2021/03/30 19:34:08 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/10 01:39:37 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ static void	ft_map(t_param *param, char *line)
 	{
 		if ((ft_strchr(line, '1') || ft_strchr(line, ' ')) && param->i++)
 			param->mapline = ft_strjoin_cub(param, line, -1, -1);
+		else if (param->i == 9 && (ft_strchr(line, '2') || ft_strchr(line, '0')
+				|| ft_strchr(line, 'N') || ft_strchr(line, 'S')
+				|| ft_strchr(line, 'E') || ft_strchr(line, 'W')))
+		{
+			ft_error("Error\nInvalid map.\n", param);
+		}
 		else
 		{
 			if (param->i > 9)

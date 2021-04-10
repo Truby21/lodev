@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:57:42 by truby             #+#    #+#             */
-/*   Updated: 2021/04/05 18:00:55 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/09 22:50:22 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ static t_param	*ft_check_zero(t_param *param, int i, int j)
 	if (ft_isalpha(param->map[i][j]))
 	{
 		view(param, i, j);
-		param->player_y = (double)i + 0.1;
-		param->player_x = (double)j + 0.1;
+		param->player_y = (double)i + 0.5;
+		param->player_x = (double)j + 0.5;
 		param->fl_player++;
 		if (param->fl_player > 1)
-			ft_error("Error\nDouble player.\n", param);
+			ft_error("Error\nMore than one player.\n", param);
 	}
 	return (param);
 }

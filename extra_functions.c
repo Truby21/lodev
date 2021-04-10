@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:50:21 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 18:05:13 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/10 03:13:28 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strjoin_cub(t_param *param, char *s2, int i, int j)
 {
 	char			*new;
 
-	new = malloc(sizeof(char) * (ft_strlen_int(param->mapline) + ft_strlen_int(s2) + 2));
+	new = malloc(ft_strlen_int(param->mapline) + ft_strlen_int(s2) + 2);
 	if (!new)
 		ft_error("Error\nError of malloc.\n", param);
 	while (++i < ft_strlen_int(param->mapline))

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:27:44 by truby             #+#    #+#             */
-/*   Updated: 2021/03/22 23:53:42 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/10 01:00:42 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	clear_param(t_param *param, int i)
 		free(param->sp);
 	if (param->mapline != NULL)
 		free(param->mapline);
+	if (param->spr != NULL)
+		free(param->spr);
 	if (param->map != NULL)
 	{
 		while (param->map[++i] != NULL)
@@ -40,5 +42,7 @@ void	ft_error(char *str, t_param *param)
 		clear_param(param, -1);
 	if (str != NULL)
 		write(1, str, ft_strlen(str));
+	else
+		return ;
 	exit(0);
 }
