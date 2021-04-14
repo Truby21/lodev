@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 20:39:43 by truby             #+#    #+#             */
-/*   Updated: 2021/04/10 16:43:14 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/12 16:34:03 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pixel_put(t_data *data, int x, int y, int color)
 
 	if (color > 0)
 	{
-		dst = im.addr + (y * im.length + x * (im.bpp / 8));
+		dst = data->i.addr + (y * data->i.length + x * (data->i.bpp / 8));
 		*(unsigned int *)dst = color;
 	}
 }
@@ -29,18 +29,18 @@ unsigned int	*pixel_take(t_txtr *txtr, int texy, int texx)
 		+ texx * (txtr->bpp / 8)));
 }
 
-void	draw_floor_ceiling(t_data *data, int x, int y)
+void	draw_floor_ceiling(t_data *d, int x, int y)
 {
-	while (++y <= (prm.ry - 2) / 2)
+	while (++y <= (d->p.ry - 2) / 2)
 	{
-		while (++x != prm.rx)
-			pixel_put(data, x, y, prm.c_color);
+		while (++x != d->p.rx)
+			pixel_put(d, x, y, d->p.c_color);
 		x = 0;
 	}
-	while (y <= prm.ry - 2)
+	while (y <= d->p.ry - 2)
 	{
-		while (++x != prm.rx)
-			pixel_put(data, x, y, prm.f_color);
+		while (++x != d->p.rx)
+			pixel_put(d, x, y, d->p.f_color);
 		x = 0;
 		y++;
 	}

@@ -6,41 +6,41 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 18:33:46 by truby             #+#    #+#             */
-/*   Updated: 2021/04/10 18:53:51 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/12 16:35:07 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static void	sortsprites(t_data *data, int i, int j)
+static void	sortsprites(t_data *d, int i, int j)
 {
 	t_spr	c;
 
-	while (++i < prm.qua_sprite)
+	while (++i < d->p.qua_sprite)
 	{
-		while (++j < prm.qua_sprite - 1)
+		while (++j < d->p.qua_sprite - 1)
 		{
-			if (spri[j].distance < spri[j + 1].distance)
+			if (d->p.spr[j].distance < d->p.spr[j + 1].distance)
 			{
-				c = spri[j];
-				spri[j] = spri[j + 1];
-				spri[j + 1] = c;
+				c = d->p.spr[j];
+				d->p.spr[j] = d->p.spr[j + 1];
+				d->p.spr[j + 1] = c;
 			}
 		}
 		j = -1;
 	}
 }
 
-void	sort_spr(t_data *data)
+void	sort_spr(t_data *d)
 {
 	int	i;
 
 	i = -1;
-	while (++i < prm.qua_sprite)
-		spri[i].distance = ((prm.player_x - spri[i].x)
-				* (prm.player_x - spri[i].x) + (prm.player_y - spri[i].y)
-				* (prm.player_y - spri[i].y));
-	sortsprites(data, -1, -1);
+	while (++i < d->p.qua_sprite)
+		d->p.spr[i].distance = ((d->p.player_x - d->p.spr[i].x)
+				* (d->p.player_x - d->p.spr[i].x) + (d->p.player_y
+					- d->p.spr[i].y) * (d->p.player_y - d->p.spr[i].y));
+	sortsprites(d, -1, -1);
 }
 
 double	deltadist(double rayone, double raytwo)
@@ -56,29 +56,29 @@ double	deltadist(double rayone, double raytwo)
 	}
 }
 
-void	init_five(t_data *data)
+void	init_five(t_data *d)
 {
-	lod.step = 0;
-	lod.texpos = 0;
-	lod.olddirx = 0;
-	lod.oldplanex = 0;
-	spsp.sprite_x = 0;
-	spsp.sprite_y = 0;
-	spsp.inv_det = 0;
-	spsp.transform_x = 0;
-	spsp.transform_y = 0;
-	spsp.sprite_screen_x = 0;
-	spsp.v_move_screen = 0;
-	spsp.sprite_height = 0;
-	spsp.sprite_width = 0;
-	spsp.draw_start_x = 0;
-	spsp.draw_start_y = 0;
-	spsp.draw_end_x = 0;
-	spsp.draw_end_y = 0;
-	spsp.stripe = 0;
-	spsp.texx = 0;
-	spsp.texy = 0;
-	spsp.y = 0;
-	spsp.d = 0;
-	spsp.color = 0;
+	d->l.step = 0;
+	d->l.texpos = 0;
+	d->l.olddirx = 0;
+	d->l.oldplanex = 0;
+	d->s.sprite_x = 0;
+	d->s.sprite_y = 0;
+	d->s.inv_det = 0;
+	d->s.transform_x = 0;
+	d->s.transform_y = 0;
+	d->s.sprite_screen_x = 0;
+	d->s.v_move_screen = 0;
+	d->s.sprite_height = 0;
+	d->s.sprite_width = 0;
+	d->s.draw_start_x = 0;
+	d->s.draw_start_y = 0;
+	d->s.draw_end_x = 0;
+	d->s.draw_end_y = 0;
+	d->s.stripe = 0;
+	d->s.texx = 0;
+	d->s.texy = 0;
+	d->s.y = 0;
+	d->s.d = 0;
+	d->s.color = 0;
 }

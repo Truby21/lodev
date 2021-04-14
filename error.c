@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 00:27:44 by truby             #+#    #+#             */
-/*   Updated: 2021/04/10 01:00:42 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/12 16:52:58 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static void	clear_param(t_param *param, int i)
+void	clear_param(t_param *param, int i)
 {
 	if (param->no != NULL)
 		free(param->no);

@@ -6,36 +6,36 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:51:33 by truby             #+#    #+#             */
-/*   Updated: 2021/04/10 19:20:36 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/12 21:13:35 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	render(t_data *data)
+int	render(t_data *d)
 {
-	mlx_do_sync(im.mlx);
-	if (prm.screen)
-		save_screen(data);
-	im.img = mlx_new_image(im.win, prm.rx, prm.ry);
-	im.addr = mlx_get_data_addr(im.img, &im.bpp, &im.length, &im.endian);
-	draw_floor_ceiling(data, 0, 0);
-	draw_texture(data, -1, 0);
-	if (prm.qua_sprite)
+	d->i.img = mlx_new_image(d->i.win, d->p.rx, d->p.ry);
+	d->i.addr = mlx_get_data_addr(d->i.img, &d->i.bpp, &d->i.length, &d->i.end);
+	if (d->p.screen)
+		mlx_destroy_window(d->i.mlx, d->i.win);
+	mlx_do_sync(d->i.mlx);
+	draw_floor_ceiling(d, 0, 0);
+	draw_texture(d, -1, 0);
+	if (d->p.qua_sprite)
 	{
-		sort_spr(data);
-		draw_sprite(data, -1);
+		sort_spr(d);
+		draw_sprite(d, -1);
 	}
-	if (spsp.p != NULL)
-		free(spsp.p);
-	moving(data);
-	if (prm.screen)
-		screenshot(data);
+	moving(d);
+	if (d->s.zb != NULL)
+		free(d->s.zb);
+	if (d->p.screen)
+		screenshot(d);
 	else
-		mlx_put_image_to_window(im.mlx, im.win, im.img, 0, 0);
-	mlx_destroy_image(im.mlx, im.img);
-	im.img = NULL;
-	im.addr = NULL;
-	spsp.p = NULL;
+		mlx_put_image_to_window(d->i.mlx, d->i.win, d->i.img, 0, 0);
+	mlx_destroy_image(d->i.mlx, d->i.img);
+	d->i.img = NULL;
+	d->i.addr = NULL;
+	d->s.zb = NULL;
 	return (0);
 }

@@ -6,122 +6,113 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 01:17:36 by truby             #+#    #+#             */
-/*   Updated: 2021/04/10 17:15:17 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/12 21:11:30 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static void	stepsidedist(t_data *data)
+static void	stepsidedist(t_data *d, int x)
 {
-	lod.mapx = prm.player_x;
-	lod.mapy = prm.player_y;
-	lod.deltadistx = deltadist(lod.raydiry, lod.raydirx);
-	lod.deltadisty = deltadist(lod.raydirx, lod.raydiry);
-	lod.hit = 0;
-	if (lod.raydirx < 0)
-	{
-		lod.stepx = -1;
-		lod.sidedistx = (prm.player_x - lod.mapx) * lod.deltadistx;
-	}
+	d->l.camx = 2 * x / (double)d->p.rx - 1;
+	d->l.raydirx = d->p.viewx + d->p.plane_x * d->l.camx;
+	d->l.raydiry = d->p.viewy + d->p.plane_y * d->l.camx;
+	d->l.mapx = d->p.player_x;
+	d->l.mapy = d->p.player_y;
+	d->l.deltadistx = deltadist(d->l.raydiry, d->l.raydirx);
+	d->l.deltadisty = deltadist(d->l.raydirx, d->l.raydiry);
+	d->l.hit = 0;
+	if (d->l.raydirx < 0)
+		step_side_x(d, -1, (d->p.player_x - d->l.mapx) * d->l.deltadistx);
 	else
-	{
-		lod.stepx = 1;
-		lod.sidedistx = (lod.mapx + 1.0 - prm.player_x) * lod.deltadistx;
-	}
-	if (lod.raydiry < 0)
-	{
-		lod.stepy = -1;
-		lod.sidedisty = (prm.player_y - lod.mapy) * lod.deltadisty;
-	}
+		step_side_x(d, 1, (d->l.mapx + 1.0 - d->p.player_x) * d->l.deltadistx);
+	if (d->l.raydiry < 0)
+		step_side_y(d, -1, (d->p.player_y - d->l.mapy) * d->l.deltadisty);
 	else
-	{
-		lod.stepy = 1;
-		lod.sidedisty = (lod.mapy + 1.0 - prm.player_y) * lod.deltadisty;
-	}
+		step_side_y(d, 1, (d->l.mapy + 1.0 - d->p.player_y) * d->l.deltadisty);
 }
 
-static void	mapstepside(t_data *data)
+static void	mapstepside(t_data *d)
 {
-	while (lod.hit == 0)
+	while (d->l.hit == 0)
 	{
-		if (lod.sidedistx < lod.sidedisty)
+		if (d->l.sidedistx < d->l.sidedisty)
 		{
-			lod.sidedistx += lod.deltadistx;
-			lod.mapx += lod.stepx;
-			lod.side = 0;
+			d->l.sidedistx += d->l.deltadistx;
+			d->l.mapx += d->l.stepx;
+			d->l.side = 0;
 		}
 		else
 		{
-			lod.sidedisty += lod.deltadisty;
-			lod.mapy += lod.stepy;
-			lod.side = 1;
+			d->l.sidedisty += d->l.deltadisty;
+			d->l.mapy += d->l.stepy;
+			d->l.side = 1;
 		}
-		if (prm.map[lod.mapy][lod.mapx] == '1')
-			lod.hit = 1;
+		if (d->p.map[d->l.mapy][d->l.mapx] == '1')
+			d->l.hit = 1;
 	}
-	if (lod.side == 0)
-		lod.per = (lod.mapx - prm.player_x + (1 - lod.stepx) / 2) / lod.raydirx;
+	if (d->l.side == 0)
+		d->l.perp = (d->l.mapx - d->p.player_x
+				+ (1 - d->l.stepx) / 2) / d->l.raydirx;
 	else
-		lod.per = (lod.mapy - prm.player_y + (1 - lod.stepy) / 2) / lod.raydiry;
-	lod.lineheight = (int)(prm.ry / lod.per);
-	lod.drawstart = -lod.lineheight / 2 + prm.ry / 2;
-	if (lod.drawstart < 0)
-		lod.drawstart = 0;
+		d->l.perp = (d->l.mapy - d->p.player_y
+				+ (1 - d->l.stepy) / 2) / d->l.raydiry;
+	d->l.lineheight = (int)(d->p.ry / d->l.perp);
+	d->l.drawstart = -d->l.lineheight / 2 + d->p.ry / 2;
 }
 
-static void	draw_txtr(t_data *data, int x, int y)
+static void	draw_txtr(t_data *d, int x, int y)
 {
-	lod.texx = (int)(lod.wallx * (double)tx[1].img_w);
-	if (lod.side == 0 && lod.raydirx > 0)
-		lod.texx = tx[1].img_w - lod.texx - 1;
-	if (lod.side == 1 && lod.raydiry < 0)
-		lod.texx = tx[1].img_w - lod.texx - 1;
-	lod.step = 1.0 * tx[1].img_h / lod.lineheight;
-	lod.texpos = (lod.drawstart - prm.ry / 2 + lod.lineheight / 2) * lod.step;
-	y = lod.drawstart - 1;
-	while (++y < lod.drawend)
+	if (d->l.side == 0 && d->l.raydirx > 0)
+		d->l.texx = d->t[1].img_w - d->l.texx - 1;
+	if (d->l.side == 1 && d->l.raydiry < 0)
+		d->l.texx = d->t[1].img_w - d->l.texx - 1;
+	d->l.step = 1.0 * d->t[1].img_h / d->l.lineheight;
+	d->l.texpos = (d->l.drawstart - d->p.ry / 2
+			+ d->l.lineheight / 2) * d->l.step;
+	y = d->l.drawstart - 1;
+	while (++y < d->l.drawend)
 	{
-		if (lod.side == 0 && lod.stepx > 0)
-			tx[5] = tx[3];
-		else if (lod.side == 0 && lod.stepx < 0)
-			tx[5] = tx[2];
-		else if (lod.side == 1 && lod.stepy < 0)
-			tx[5] = tx[0];
-		else if (lod.side == 1 && lod.stepy > 0)
-			tx[5] = tx[1];
-		lod.texy = (int)lod.texpos;
-		if (lod.texy >= tx[5].img_h)
-			lod.texy = tx[5].img_h - 1;
-		lod.texpos += lod.step;
-		lod.color = pixel_take(&tx[5], lod.texy, lod.texx);
-		pixel_put(data, x, y, (int)(*lod.color));
+		if (d->l.side == 0 && d->l.stepx > 0)
+			d->t[5] = d->t[3];
+		else if (d->l.side == 0 && d->l.stepx < 0)
+			d->t[5] = d->t[2];
+		else if (d->l.side == 1 && d->l.stepy < 0)
+			d->t[5] = d->t[0];
+		else if (d->l.side == 1 && d->l.stepy > 0)
+			d->t[5] = d->t[1];
+		d->l.texy = (int)d->l.texpos;
+		if (d->l.texy >= d->t[5].img_h)
+			d->l.texy = d->t[5].img_h - 1;
+		d->l.texpos += d->l.step;
+		d->l.color = pixel_take(&d->t[5], d->l.texy, d->l.texx);
+		pixel_put(d, x, y, (int)(*d->l.color));
 	}
 }
 
-void	draw_texture(t_data *data, int x, int y)
+void	draw_texture(t_data *d, int x, int y)
 {
-	spsp.p = malloc(sizeof(double) * prm.rx);
-	if (spsp.p == NULL)
-		ft_error("Error\nError of malloc.", &prm);
-	lod.time = 30;
-	lod.oldtime = 0;
-	while (++x < prm.rx)
+	d->s.zb = malloc(sizeof(double) * d->p.rx);
+	if (d->s.zb == NULL)
+		ft_error("Error\nError of malloc.", &d->p);
+	d->l.time = 30;
+	d->l.oldtime = 0;
+	while (++x < d->p.rx)
 	{
-		lod.camx = 2 * x / (double)prm.rx - 1;
-		lod.raydirx = prm.viewx + prm.plane_x * lod.camx;
-		lod.raydiry = prm.viewy + prm.plane_y * lod.camx;
-		stepsidedist(data);
-		mapstepside(data);
-		lod.drawend = lod.lineheight / 2 + prm.ry / 2;
-		if (lod.drawend >= prm.ry)
-			lod.drawend = prm.ry;
-		if (lod.side == 0)
-			lod.wallx = prm.player_y + lod.per * lod.raydiry;
+		stepsidedist(d, x);
+		mapstepside(d);
+		if (d->l.drawstart < 0)
+			d->l.drawstart = 0;
+		d->l.drawend = d->l.lineheight / 2 + d->p.ry / 2;
+		if (d->l.drawend >= d->p.ry)
+			d->l.drawend = d->p.ry;
+		if (d->l.side == 0)
+			d->l.wallx = d->p.player_y + d->l.perp * d->l.raydiry;
 		else
-			lod.wallx = prm.player_x + lod.per * lod.raydirx;
-		lod.wallx -= floor(lod.wallx);
-		draw_txtr(data, x, y);
-		spsp.p[x] = lod.per;
+			d->l.wallx = d->p.player_x + d->l.perp * d->l.raydirx;
+		d->l.wallx -= floor(d->l.wallx);
+		d->l.texx = (int)(d->l.wallx * (double)d->t[1].img_w);
+		draw_txtr(d, x, y);
+		d->s.zb[x] = d->l.perp;
 	}
 }

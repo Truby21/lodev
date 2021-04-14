@@ -6,64 +6,64 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 13:33:48 by truby             #+#    #+#             */
-/*   Updated: 2021/04/10 13:49:23 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/12 16:37:45 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	move_forward(t_data *data)
+void	move_forward(t_data *d)
 {
-	if (prm.map[(int)prm.player_y][(int)(prm.player_x + prm.viewx
-		* lod.movespeed)] != '1'
-		&& prm.map[(int)prm.player_y][(int)(prm.player_x + prm.viewx
-			* lod.movespeed)] != '2')
-		prm.player_x += prm.viewx * lod.movespeed;
-	if (prm.map[(int)(prm.player_y + prm.viewy * lod.movespeed)]
-		[(int)prm.player_x] != '1'
-		&& prm.map[(int)(prm.player_y + prm.viewy * lod.movespeed)]
-			[(int)prm.player_x] != '2')
-		prm.player_y += prm.viewy * lod.movespeed;
+	if (d->p.map[(int)d->p.player_y][(int)(d->p.player_x + d->p.viewx
+		* d->l.movespeed)] != '1'
+		&& d->p.map[(int)d->p.player_y][(int)(d->p.player_x + d->p.viewx
+			* d->l.movespeed)] != '2')
+		d->p.player_x += d->p.viewx * d->l.movespeed;
+	if (d->p.map[(int)(d->p.player_y + d->p.viewy * d->l.movespeed)]
+		[(int)d->p.player_x] != '1'
+		&& d->p.map[(int)(d->p.player_y + d->p.viewy * d->l.movespeed)]
+			[(int)d->p.player_x] != '2')
+		d->p.player_y += d->p.viewy * d->l.movespeed;
 }
 
-void	move_backward(t_data *data)
+void	move_backward(t_data *d)
 {
-	if (prm.map[(int)prm.player_y][(int)(prm.player_x - prm.viewx
-		* lod.movespeed)] != '1'
-		&& prm.map[(int)prm.player_y][(int)(prm.player_x - prm.viewx
-			* lod.movespeed)] != '2')
-		prm.player_x -= prm.viewx * lod.movespeed;
-	if (prm.map[(int)(prm.player_y - prm.viewy * lod.movespeed)]
-		[(int)prm.player_x] != '1'
-		&& prm.map[(int)(prm.player_y - prm.viewy * lod.movespeed)]
-			[(int)prm.player_x] != '2')
-		prm.player_y -= prm.viewy * lod.movespeed;
+	if (d->p.map[(int)d->p.player_y][(int)(d->p.player_x - d->p.viewx
+		* d->l.movespeed)] != '1'
+		&& d->p.map[(int)d->p.player_y][(int)(d->p.player_x - d->p.viewx
+			* d->l.movespeed)] != '2')
+		d->p.player_x -= d->p.viewx * d->l.movespeed;
+	if (d->p.map[(int)(d->p.player_y - d->p.viewy * d->l.movespeed)]
+		[(int)d->p.player_x] != '1'
+		&& d->p.map[(int)(d->p.player_y - d->p.viewy * d->l.movespeed)]
+			[(int)d->p.player_x] != '2')
+		d->p.player_y -= d->p.viewy * d->l.movespeed;
 }
 
-void	move_left(t_data *data)
+void	move_left(t_data *d)
 {
-	if (prm.map[(int)(prm.player_y - prm.viewx
-			* lod.movespeed)][(int)prm.player_x] != '1'
-		&& prm.map[(int)(prm.player_y - prm.viewx
-			* lod.movespeed)][(int)prm.player_x] != '2')
-		prm.player_y -= prm.viewx * lod.movespeed;
-	if (prm.map[(int)prm.player_y]
-		[(int)(prm.player_x + prm.viewy * lod.movespeed)] != '1'
-		&& prm.map[(int)prm.player_y]
-			[(int)(prm.player_x + prm.viewy * lod.movespeed)] != '2')
-		prm.player_x += prm.viewy * lod.movespeed;
+	if (d->p.map[(int)(d->p.player_y - d->p.viewx
+			* d->l.movespeed)][(int)d->p.player_x] != '1'
+		&& d->p.map[(int)(d->p.player_y - d->p.viewx
+			* d->l.movespeed)][(int)d->p.player_x] != '2')
+		d->p.player_y -= d->p.viewx * d->l.movespeed;
+	if (d->p.map[(int)d->p.player_y]
+		[(int)(d->p.player_x + d->p.viewy * d->l.movespeed)] != '1'
+		&& d->p.map[(int)d->p.player_y]
+			[(int)(d->p.player_x + d->p.viewy * d->l.movespeed)] != '2')
+		d->p.player_x += d->p.viewy * d->l.movespeed;
 }
 
-void	move_right(t_data *data)
+void	move_right(t_data *d)
 {
-	if (prm.map[(int)(prm.player_y + prm.viewx
-			* lod.movespeed)][(int)prm.player_x] != '1'
-		&& prm.map[(int)(prm.player_y + prm.viewx
-			* lod.movespeed)][(int)prm.player_x] != '2')
-		prm.player_y += prm.viewx * lod.movespeed;
-	if (prm.map[(int)prm.player_y]
-		[(int)(prm.player_x - prm.viewy * lod.movespeed)] != '1'
-		&& prm.map[(int)prm.player_y]
-			[(int)(prm.player_x - prm.viewy * lod.movespeed)] != '2')
-		prm.player_x -= prm.viewy * lod.movespeed;
+	if (d->p.map[(int)(d->p.player_y + d->p.viewx
+			* d->l.movespeed)][(int)d->p.player_x] != '1'
+		&& d->p.map[(int)(d->p.player_y + d->p.viewx
+			* d->l.movespeed)][(int)d->p.player_x] != '2')
+		d->p.player_y += d->p.viewx * d->l.movespeed;
+	if (d->p.map[(int)d->p.player_y]
+		[(int)(d->p.player_x - d->p.viewy * d->l.movespeed)] != '1'
+		&& d->p.map[(int)d->p.player_y]
+			[(int)(d->p.player_x - d->p.viewy * d->l.movespeed)] != '2')
+		d->p.player_x -= d->p.viewy * d->l.movespeed;
 }

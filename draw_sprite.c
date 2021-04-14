@@ -6,72 +6,73 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 18:54:15 by truby             #+#    #+#             */
-/*   Updated: 2021/04/10 16:53:04 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/12 21:11:12 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static void	spdraw(t_data *data, int i)
+static void	spdraw(t_data *d, int i)
 {
-	spsp.sprite_x = prm.spr[i].x - prm.player_x;
-	spsp.sprite_y = prm.spr[i].y - prm.player_y;
-	spsp.inv_det = 1.0
-		/ (prm.plane_x * prm.viewy - prm.viewx * prm.plane_y);
-	spsp.transform_x = spsp.inv_det
-		* (prm.viewy * spsp.sprite_x - prm.viewx * spsp.sprite_y);
-	spsp.transform_y = spsp.inv_det
-		* (-prm.plane_y * spsp.sprite_x + prm.plane_x * spsp.sprite_y);
-	spsp.sprite_screen_x = (int)((prm.rx / 2)
-			* (1 + spsp.transform_x / spsp.transform_y));
-	spsp.v_move_screen = (int)(0.0 / spsp.transform_y);
-	spsp.sprite_height = abs((int)(prm.ry / (spsp.transform_y))) / 1;
-	spsp.draw_start_y = -spsp.sprite_height
-		/ 2 + prm.ry / 2 + spsp.v_move_screen;
+	d->s.sprite_x = d->p.spr[i].x - d->p.player_x;
+	d->s.sprite_y = d->p.spr[i].y - d->p.player_y;
+	d->s.inv_det = 1.0
+		/ (d->p.plane_x * d->p.viewy - d->p.viewx * d->p.plane_y);
+	d->s.transform_x = d->s.inv_det
+		* (d->p.viewy * d->s.sprite_x - d->p.viewx * d->s.sprite_y);
+	d->s.transform_y = d->s.inv_det
+		* (-d->p.plane_y * d->s.sprite_x + d->p.plane_x * d->s.sprite_y);
+	d->s.sprite_screen_x = (int)((d->p.rx / 2)
+			* (1 + d->s.transform_x / d->s.transform_y));
+	d->s.v_move_screen = (int)(0.0 / d->s.transform_y);
+	d->s.sprite_height = abs((int)(d->p.ry / (d->s.transform_y))) / 1;
+	d->s.draw_start_y = -d->s.sprite_height
+		/ 2 + d->p.ry / 2 + d->s.v_move_screen;
 }
 
-static void	drawsp(t_data *data, int i)
+static void	drawsp(t_data *d, int i)
 {
-	if (spsp.draw_start_x < 0)
-		spsp.draw_start_x = 0;
-	spsp.draw_end_x = spsp.sprite_width / 2 + spsp.sprite_screen_x;
-	if (spsp.draw_end_x >= prm.rx)
-		spsp.draw_end_x = prm.rx - 1;
-	spsp.stripe = spsp.draw_start_x - 1;
-	while (++spsp.stripe < spsp.draw_end_x)
+	d->s.draw_end_x = d->s.sprite_width / 2 + d->s.sprite_screen_x;
+	if (d->s.draw_end_x >= d->p.rx)
+		d->s.draw_end_x = d->p.rx - 1;
+	d->s.stripe = d->s.draw_start_x - 1;
+	while (++d->s.stripe < d->s.draw_end_x)
 	{
-		spsp.texx = ((int)(256 * (spsp.stripe
-						- (-spsp.sprite_width / 2 + spsp.sprite_screen_x))
-					* tx[4].img_w / spsp.sprite_width) / 256);
-		if (spsp.transform_y > 0 && spsp.stripe > 0
-			&& spsp.stripe < prm.rx && spsp.transform_y < spsp.p[spsp.stripe])
+		d->s.texx = ((int)(256 * (d->s.stripe
+						- (-d->s.sprite_width / 2 + d->s.sprite_screen_x))
+					* d->t[4].img_w / d->s.sprite_width) / 256);
+		if (d->s.transform_y > 0 && d->s.stripe > 0
+			&& d->s.stripe < d->p.rx && d->s.transform_y < d->s.zb[d->s.stripe])
 		{
-			spsp.y = spsp.draw_start_y - 1;
-			while (++spsp.y < spsp.draw_end_y)
+			d->s.y = d->s.draw_start_y - 1;
+			while (++d->s.y < d->s.draw_end_y)
 			{
-				spsp.d = (spsp.y - spsp.v_move_screen) * 256
-					- prm.ry * 128 + spsp.sprite_height * 128;
-				spsp.texy = ((spsp.d * tx[4].img_h) / spsp.sprite_height) / 256;
-				spsp.color = pixel_take(&tx[4], spsp.texy, spsp.texx);
-				pixel_put(data, spsp.stripe, spsp.y, (int)(*spsp.color));
+				d->s.d = (d->s.y - d->s.v_move_screen) * 256
+					- d->p.ry * 128 + d->s.sprite_height * 128;
+				d->s.texy = ((d->s.d * d->t[4].img_h)
+						/ d->s.sprite_height) / 256;
+				d->s.color = pixel_take(&d->t[4], d->s.texy, d->s.texx);
+				pixel_put(d, d->s.stripe, d->s.y, (int)(*d->s.color));
 			}
 		}
 	}	
 }
 
-void	draw_sprite(t_data *data, int i)
+void	draw_sprite(t_data *d, int i)
 {
-	while (++i < prm.qua_sprite)
+	while (++i < d->p.qua_sprite)
 	{
-		spdraw(data, i);
-		if (spsp.draw_start_y < 0)
-			spsp.draw_start_y = 0;
-		spsp.draw_end_y = spsp.sprite_height / 2
-			+ prm.ry / 2 + spsp.v_move_screen;
-		if (spsp.draw_end_y >= prm.ry)
-			spsp.draw_end_y = prm.ry - 1;
-		spsp.sprite_width = abs((int)(prm.ry / (spsp.transform_y))) / 1;
-		spsp.draw_start_x = -spsp.sprite_width / 2 + spsp.sprite_screen_x;
-		drawsp(data, i);
+		spdraw(d, i);
+		if (d->s.draw_start_y < 0)
+			d->s.draw_start_y = 0;
+		d->s.draw_end_y = d->s.sprite_height / 2
+			+ d->p.ry / 2 + d->s.v_move_screen;
+		if (d->s.draw_end_y >= d->p.ry)
+			d->s.draw_end_y = d->p.ry - 1;
+		d->s.sprite_width = abs((int)(d->p.ry / (d->s.transform_y))) / 1;
+		d->s.draw_start_x = -d->s.sprite_width / 2 + d->s.sprite_screen_x;
+		if (d->s.draw_start_x < 0)
+			d->s.draw_start_x = 0;
+		drawsp(d, i);
 	}
 }
