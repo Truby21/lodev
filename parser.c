@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 21:13:40 by truby             #+#    #+#             */
-/*   Updated: 2021/04/10 01:39:37 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/15 16:07:50 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_map(t_param *param, char *line)
 		else
 		{
 			if (param->i > 9)
-				ft_error("Error\nInvalid map.\n", param);
+				ft_error("Error\nInvalid config.\n", param);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 01:10:02 by truby             #+#    #+#             */
-/*   Updated: 2021/04/12 20:47:18 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/14 22:12:32 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static t_param	*ft_find_xy(char *line, int i, t_param *param)
 		|| (ft_spaces_and_end(line, &i, 0)) < 0
 		|| (ft_number(line, &i, &(param->ry))) < 0
 		|| (ft_spaces_and_end(line, &i, 1)) < 0)
+		ft_error("Error\nInvalid resolution.\n", param);
+	else if (param->rx == 0 || param->ry == 0)
 		ft_error("Error\nInvalid resolution.\n", param);
 	return (param);
 }

@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 01:17:36 by truby             #+#    #+#             */
-/*   Updated: 2021/04/12 21:11:30 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/17 20:19:16 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	draw_texture(t_data *d, int x, int y)
 	d->s.zb = malloc(sizeof(double) * d->p.rx);
 	if (d->s.zb == NULL)
 		ft_error("Error\nError of malloc.", &d->p);
-	d->l.time = 30;
+	d->l.time = 20;
 	d->l.oldtime = 0;
 	while (++x < d->p.rx)
 	{
@@ -104,7 +104,7 @@ void	draw_texture(t_data *d, int x, int y)
 		if (d->l.drawstart < 0)
 			d->l.drawstart = 0;
 		d->l.drawend = d->l.lineheight / 2 + d->p.ry / 2;
-		if (d->l.drawend >= d->p.ry)
+		if (d->l.drawend > d->p.ry)
 			d->l.drawend = d->p.ry;
 		if (d->l.side == 0)
 			d->l.wallx = d->p.player_y + d->l.perp * d->l.raydiry;

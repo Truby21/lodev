@@ -23,7 +23,7 @@ void		*ft_calloc(size_t num, size_t size)
 		return (NULL);
 	while (i < num * size)
 	{
-		h[i] = ' ';
+		h[i] = '0';
 		i++;
 	}
 	return (h);

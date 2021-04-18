@@ -6,7 +6,7 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:39:15 by truby             #+#    #+#             */
-/*   Updated: 2021/04/12 21:05:20 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/14 22:35:32 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	first_check(int argc, char **argv, int *fd, t_param *param)
 		ft_error("Error\nInvalid name of config.\n", NULL);
 	if (argc == 3)
 	{
-		if (ft_strncmp(argv[2], "--save", 6))
+		if (ft_strncmp(argv[2], "--save", 7))
 			ft_error("Error\nUndefined flag.\n", NULL);
 		else
 			param->screen++;
@@ -72,8 +72,8 @@ static void	img_textures(t_data *d, int i)
 			&d->t[4].img_w, &d->t[4].img_h);
 	while (++i != 5)
 	{
-		if (d->t[i].img == NULL)
-			ft_error("Error\nOne of the textures is broken.", &d->p);
+		if (d->t[i].img == NULL || d->t[i].img_w != 64 || d->t[i].img_h != 64)
+			ft_error("Error\nInvalid texture(s).\n", &d->p);
 	}
 	d->t[0].addr = mlx_get_data_addr(d->t[0].img, &d->t[0].bpp,
 			&d->t[0].len, &d->t[0].end);
