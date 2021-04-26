@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 15:27:55 by truby             #+#    #+#             */
-/*   Updated: 2020/11/07 23:45:47 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 00:59:50 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_strncmp(const char *str1, const char *str2, size_t num)
+int	ft_strncmp(const char *str1, const char *str2, size_t num)
 {
 	if (num == 0)
 		return (0);

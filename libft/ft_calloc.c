@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:55:47 by truby             #+#    #+#             */
-/*   Updated: 2020/12/09 20:54:27 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:03:09 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_calloc(size_t num, size_t size)
+void	*ft_calloc(size_t num, size_t size)
 {
 	unsigned char	*h;
 	size_t			i;

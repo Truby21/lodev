@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 20:26:28 by truby             #+#    #+#             */
-/*   Updated: 2021/01/30 23:14:04 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 00:51:00 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int			ft_len_gnl(const char *str)
+int	ft_len_gnl(const char *str)
 {
 	int		i;
 
@@ -24,7 +24,7 @@ int			ft_len_gnl(const char *str)
 	return (i);
 }
 
-int			ft_strchr_n(char *s)
+int	ft_strchr_n(char *s)
 {
 	int		i;
 	int		z;
@@ -42,7 +42,7 @@ int			ft_strchr_n(char *s)
 	return (0);
 }
 
-char		*ft_strdup_line(char *s)
+char	*ft_strdup_line(char *s)
 {
 	char	*b;
 	int		len;
@@ -50,7 +50,8 @@ char		*ft_strdup_line(char *s)
 	len = 0;
 	while (s[len] && s[len] != '\n')
 		len++;
-	if (!(b = (char*)malloc(sizeof(char) * (len + 1))))
+	b = (char *)malloc(sizeof(char) * (len + 1));
+	if (b == NULL)
 		return (NULL);
 	len = 0;
 	while (s[len] && s[len] != '\n')
@@ -62,7 +63,7 @@ char		*ft_strdup_line(char *s)
 	return (b);
 }
 
-char		*ft_strdup_rem(char *s)
+char	*ft_strdup_rem(char *s)
 {
 	char	*b;
 	int		len;
@@ -78,7 +79,8 @@ char		*ft_strdup_rem(char *s)
 			return (0);
 		}
 	}
-	if (!(b = (char*)malloc(sizeof(char) * (ft_len_gnl(s) - len + 1))))
+	b = (char *)malloc(sizeof(char) * (ft_len_gnl(s) - len + 1));
+	if (b == NULL)
 		return (NULL);
 	while (s[++len])
 		b[i++] = s[len];
@@ -87,7 +89,7 @@ char		*ft_strdup_rem(char *s)
 	return (b);
 }
 
-char		*ft_strjoin_gnl(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*new;
 	int		i;
@@ -95,7 +97,8 @@ char		*ft_strjoin_gnl(char *s1, char *s2)
 
 	i = -1;
 	j = -1;
-	if (!(new = malloc(sizeof(char) * (ft_len_gnl(s1) + ft_len_gnl(s2) + 1))))
+	new = malloc(sizeof(char) * (ft_len_gnl(s1) + ft_len_gnl(s2) + 1));
+	if (new == NULL)
 		return (NULL);
 	while (++i < ft_len_gnl(s1))
 		new[i] = s1[i];

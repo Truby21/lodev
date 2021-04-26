@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:17:31 by truby             #+#    #+#             */
-/*   Updated: 2020/11/18 18:04:01 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:03:27 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int					ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
 	int				i;
 	int				b;

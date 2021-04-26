@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 02:18:04 by truby             #+#    #+#             */
-/*   Updated: 2020/11/18 18:22:17 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:02:42 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char			*array(char *k, unsigned int o, int g)
+static char	*array(char *k, unsigned int o, int g)
 {
 	while (o > 0 || g >= 0)
 	{
@@ -23,7 +23,7 @@ static char			*array(char *k, unsigned int o, int g)
 	return (k);
 }
 
-static int			qchar(unsigned int o, int g)
+static int	qchar(unsigned int o, int g)
 {
 	while (o >= 10)
 	{
@@ -33,7 +33,7 @@ static int			qchar(unsigned int o, int g)
 	return (g);
 }
 
-char				*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char			*k;
 	unsigned int	o;

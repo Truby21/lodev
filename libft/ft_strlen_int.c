@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 23:49:06 by truby             #+#    #+#             */
-/*   Updated: 2021/02/16 23:49:46 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:00:03 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_strlen_int(char *str)
+int	ft_strlen_int(char *str)
 {
 	int		i;
 

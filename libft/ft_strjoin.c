@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 01:30:30 by truby             #+#    #+#             */
-/*   Updated: 2020/11/18 18:52:33 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:00:19 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new;
 	size_t	i;

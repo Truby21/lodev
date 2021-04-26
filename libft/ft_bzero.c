@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 19:20:41 by truby             #+#    #+#             */
-/*   Updated: 2020/11/18 18:05:22 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:03:20 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
 	unsigned char	*b;
 	size_t			i;

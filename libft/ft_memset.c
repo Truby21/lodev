@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 20:24:02 by truby             #+#    #+#             */
-/*   Updated: 2020/11/18 18:45:08 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:01:24 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *b, int c, size_t len)
 {
 	unsigned char	*s;
 	size_t			i;

@@ -6,20 +6,20 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 20:24:08 by truby             #+#    #+#             */
-/*   Updated: 2021/01/30 23:08:45 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 00:58:05 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int			ft_clear(char *rem)
+static int	ft_clear(char *rem)
 {
 	if (rem)
 		free(rem);
 	return (-1);
 }
 
-int					get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char		*rem;
 	char			buff[BUFFER_SIZE + 1];
@@ -32,12 +32,18 @@ int					get_next_line(int fd, char **line)
 	{
 		qua = read(fd, buff, BUFFER_SIZE);
 		buff[qua] = '\0';
-		if (!(rem = ft_strjoin_gnl(rem, buff)))
+		rem = ft_strjoin_gnl(rem, buff);
+		if (rem == NULL)
 			return (ft_clear(rem));
 	}
-	if (!(*line = ft_strdup_line(rem)))
+	*line = ft_strdup_line(rem);
+	if (*line == NULL)
 		return (ft_clear(rem));
-	if (!(rem = ft_strdup_rem(rem)) && ft_strchr_n(rem))
+	rem = ft_strdup_rem(rem);
+	if (rem == NULL && ft_strchr_n(rem))
 		return (ft_clear(rem));
-	return (qua ? 1 : 0);
+	if (qua)
+		return (1);
+	else
+		return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 21:53:42 by truby             #+#    #+#             */
-/*   Updated: 2021/03/21 16:47:05 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:08:04 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int				qword(char const *s, char c)
+static int	qword(char const *s, char c)
 {
 	size_t				i;
 	size_t				g;
@@ -28,7 +28,7 @@ static int				qword(char const *s, char c)
 	return (g);
 }
 
-static unsigned int		find(char const *s, char c)
+static unsigned int	find(char const *s, char c)
 {
 	unsigned int		i;
 
@@ -43,7 +43,7 @@ static unsigned int		find(char const *s, char c)
 	return (i);
 }
 
-static size_t			qchar(char const *s, char c, unsigned int g)
+static size_t	qchar(char const *s, char c, unsigned int g)
 {
 	size_t				i;
 
@@ -56,7 +56,7 @@ static size_t			qchar(char const *s, char c, unsigned int g)
 	return (i);
 }
 
-static void				*ft_free(char **sp, unsigned int o)
+static void	*ft_free(char **sp, unsigned int o)
 {
 	unsigned int		f;
 
@@ -70,7 +70,7 @@ static void				*ft_free(char **sp, unsigned int o)
 	return (NULL);
 }
 
-char					**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int					w;
 	size_t				ch;
@@ -82,13 +82,15 @@ char					**ft_split(char const *s, char c)
 		return (NULL);
 	o = 0;
 	w = qword(s, c);
-	if (!(sp = (char **)malloc(sizeof(char *) * (w + 1))))
+	sp = (char **)malloc(sizeof(char *) * (w + 1));
+	if (sp == NULL)
 		return (NULL);
 	while (o != w)
 	{
 		g = find(s, c);
 		ch = qchar(s, c, g);
-		if (!(sp[o] = ft_substr(s, g, ch)))
+		sp[o] = ft_substr(s, g, ch);
+		if (sp[o] == NULL)
 			return (ft_free(sp, o));
 		o++;
 		s = s + g + ch;

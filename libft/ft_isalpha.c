@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: truby <truby@student.21-school.r>          +#+  +:+       +#+        */
+/*   By: truby <truby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 22:35:51 by truby             #+#    #+#             */
-/*   Updated: 2020/11/05 16:46:24 by truby            ###   ########.fr       */
+/*   Updated: 2021/04/27 01:03:01 by truby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int			ft_isalpha(int ch)
+int	ft_isalpha(int ch)
 {
 	if ((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122))
 		return (1);
