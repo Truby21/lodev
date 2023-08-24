@@ -1,12 +1,18 @@
-SCHOOL 21 PROJECT
+CUB 3D
+======
 
-This project is inspired by the world-famous Wolfenstein 3D game, which
-was the first FPS ever. The main goal is make a dynamic view inside a maze.
+Этот проект был вдохновлен знаменитой игрой Wolfenstein 3D, которая является одним из самых первыъ шутеров от первого лица.
+Главной целью проекта было создать динамический вид от первого лица внутри лабиринта.
 
-The compilation was performed as follows: gcc -Wall -Wextra -Werror *.o -L. -lmlx -lft -framework OpenGL -framework AppKit -o cub3d.
+## Запуск
+Компиляция:  
+`gcc -Wall -Wextra -Werror *.o -L. -lmlx -lft -framework OpenGL -framework AppKit -o cub3d`
+Начало игры:  
+`./cub3d`
 
-Using the miniLibX library.
-
-All files pass to Norminette.
-
-No memory leaks.
+## О проекте
+>[!IMPORTANT]
+>Была использована библиотека miniLibX.
+Проект был выполнен и сдан на отлично в рамках учебной программы французской школы программирования Ecole 42.  
+Все файлы были проверены Школьным линтером - Norminette. Мы соблюдали множество синтаксических правил и ограничений.  
+Весь проект был проверен на утечки памяти.
