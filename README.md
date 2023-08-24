@@ -6,13 +6,14 @@ CUB 3D
 
 ## Запуск
 Компиляция:  
-`gcc -Wall -Wextra -Werror *.o -L. -lmlx -lft -framework OpenGL -framework AppKit -o cub3d`
+`gcc -Wall -Wextra -Werror *.o -L. -lmlx -lft -framework OpenGL -framework AppKit -o cub3d`  
 Начало игры:  
 `./cub3d`
 
 ## О проекте
 >[!IMPORTANT]
 >Была использована библиотека miniLibX.
+
 Проект был выполнен и сдан на отлично в рамках учебной программы французской школы программирования Ecole 42.  
 Все файлы были проверены Школьным линтером - Norminette. Мы соблюдали множество синтаксических правил и ограничений.  
 Весь проект был проверен на утечки памяти.
