@@ -5,6 +5,8 @@ CUB 3D
 Главной целью проекта было создать динамический вид от первого лица внутри лабиринта.
 
 ## Запуск
+Быстрая сборка:  
+`make`
 Компиляция:  
 `gcc -Wall -Wextra -Werror *.o -L. -lmlx -lft -framework OpenGL -framework AppKit -o cub3d`  
 Начало игры:  
