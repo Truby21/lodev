@@ -6,7 +6,7 @@ CUB 3D
 
 ## Запуск
 Быстрая сборка:  
-`make`
+`make`  
 Компиляция:  
 `gcc -Wall -Wextra -Werror *.o -L. -lmlx -lft -framework OpenGL -framework AppKit -o cub3d`  
 Начало игры:  
